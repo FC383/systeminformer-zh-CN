@@ -205,7 +205,7 @@ VOID NTAPI ShowOptionsCallback(
     PPH_PLUGIN_OPTIONS_POINTERS optionsEntry = (PPH_PLUGIN_OPTIONS_POINTERS)Parameter;
 
     optionsEntry->CreateSection(
-        L"Updater",
+        L"更新检查器",
         NtCurrentImageBase(),
         MAKEINTRESOURCE(IDD_OPTIONS),
         OptionsDlgProc,
@@ -257,8 +257,8 @@ LOGICAL DllMain(
             if (!PluginInstance)
                 return FALSE;
 
-            info->DisplayName = L"Update Checker";
-            info->Description = L"Plugin for checking new System Informer releases via the Help menu.";
+            info->DisplayName = L"更新检查器";
+            info->Description = L"用于通过帮助菜单检查 System Informer 新版本的插件。";
 
             PhRegisterCallback(
                 PhGetPluginCallback(PluginInstance, PluginCallbackLoad),

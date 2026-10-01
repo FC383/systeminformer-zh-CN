@@ -836,7 +836,7 @@ PPH_STRING EtGetNodeEngineTypeString(
     case DXGK_ENGINE_TYPE_SCENE_ASSEMBLY:
         return PhCreateString(L"Scene Assembly");
     case DXGK_ENGINE_TYPE_COPY:
-        return PhCreateString(L"Copy");
+        return PhCreateString(L"复制");
     case DXGK_ENGINE_TYPE_OVERLAY:
         return PhCreateString(L"Overlay");
     case DXGK_ENGINE_TYPE_CRYPTO:

@@ -172,8 +172,8 @@ static VOID PhpRefreshEventPageInfo(
         )))
     {
         EVENT_BASIC_INFORMATION basicInfo;
-        PWSTR eventType = L"Unknown";
-        PWSTR eventState = L"Unknown";
+        PWSTR eventType = L"未知";
+        PWSTR eventState = L"未知";
 
         if (NT_SUCCESS(PhGetEventBasicInformation(eventHandle, &basicInfo)))
         {
@@ -187,7 +187,7 @@ static VOID PhpRefreshEventPageInfo(
                 break;
             }
 
-            eventState = basicInfo.EventState > 0 ? L"True" : L"False";
+            eventState = basicInfo.EventState > 0 ? L"是" : L"否";
         }
 
         PhSetDialogItemText(hwndDlg, IDC_TYPE, eventType);
@@ -380,8 +380,8 @@ static VOID PhpRefreshSemaphorePageInfo(
         }
         else
         {
-            PhSetDialogItemText(hwndDlg, IDC_CURRENTCOUNT, L"Unknown");
-            PhSetDialogItemText(hwndDlg, IDC_MAXIMUMCOUNT, L"Unknown");
+            PhSetDialogItemText(hwndDlg, IDC_CURRENTCOUNT, L"未知");
+            PhSetDialogItemText(hwndDlg, IDC_MAXIMUMCOUNT, L"未知");
         }
 
         NtClose(semaphoreHandle);
@@ -490,11 +490,11 @@ static VOID PhpRefreshTimerPageInfo(
 
         if (NT_SUCCESS(PhGetTimerBasicInformation(timerHandle, &basicInfo)))
         {
-            PhSetDialogItemText(hwndDlg, IDC_SIGNALED, basicInfo.TimerState ? L"True" : L"False");
+            PhSetDialogItemText(hwndDlg, IDC_SIGNALED, basicInfo.TimerState ? L"是" : L"否");
         }
         else
         {
-            PhSetDialogItemText(hwndDlg, IDC_SIGNALED, L"Unknown");
+            PhSetDialogItemText(hwndDlg, IDC_SIGNALED, L"未知");
         }
 
         NtClose(timerHandle);
@@ -647,7 +647,7 @@ VOID PhpEnumerateMappingsEntries(
         }
         else
         {
-            lvItemIndex = PhAddListViewItem(Context->ListViewHandle, MAXINT, L"Unknown", info);
+            lvItemIndex = PhAddListViewItem(Context->ListViewHandle, MAXINT, L"未知", info);
         }
 
         PhPrintPointer(value, info->StartVa);
@@ -745,10 +745,10 @@ INT_PTR CALLBACK PhpMappingsPageProc(
             menu = PhCreateEMenu();
             if (info && info->ViewMapType == VIEW_MAP_TYPE_PROCESS)
             {
-                PhInsertEMenuItem(menu, PhCreateEMenuItem(0, 1, L"&Go to process", NULL, NULL), ULONG_MAX);
+                PhInsertEMenuItem(menu, PhCreateEMenuItem(0, 1, L"转到进程(&G)", NULL, NULL), ULONG_MAX);
                 PhInsertEMenuItem(menu, PhCreateEMenuSeparator(), ULONG_MAX);
             }
-            PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_COPY, L"&Copy", NULL, NULL), ULONG_MAX);
+            PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_COPY, L"复制(&C)", NULL, NULL), ULONG_MAX);
             PhInsertCopyListViewEMenuItem(menu, IDC_COPY, context->ListViewHandle);
 
             item = PhShowEMenu(
@@ -1008,7 +1008,7 @@ VOID PhSetSocketListViewItemBoolean(
     _In_ ULONG Value
     )
 {
-    PhSetSocketListViewItem(Context, Index, Value ? L"True" : L"False");
+    PhSetSocketListViewItem(Context, Index, Value ? L"是" : L"否");
 }
 
 VOID PhSetSocketListViewItemBytes(
@@ -1970,8 +1970,8 @@ INT_PTR CALLBACK PhpAfdSocketPageProc(
             PhSetListViewStyle(context->ListViewHandle, FALSE, TRUE);
             PhSetControlTheme(context->ListViewHandle, L"explorer");
             PhSetExtendedListView(context->ListViewHandle);
-            PhListView_AddColumn(context->ListViewContext, 0, 0, 0, LVCFMT_LEFT, 145, L"Name");
-            PhListView_AddColumn(context->ListViewContext, 1, 1, 1, LVCFMT_LEFT, 225, L"Value");
+            PhListView_AddColumn(context->ListViewContext, 0, 0, 0, LVCFMT_LEFT, 145, L"名称");
+            PhListView_AddColumn(context->ListViewContext, 1, 1, 1, LVCFMT_LEFT, 225, L"值");
             PhListView_EnableGroupView(context->ListViewContext, TRUE);
 
             PhListView_AddGroup(context->ListViewContext, PH_AFD_SOCKET_GROUP_SHARED, L"Shared Winsock context");
@@ -2163,7 +2163,7 @@ INT_PTR CALLBACK PhpAfdSocketPageProc(
                 if (PhGetSelectedListViewItemParams(context->ListViewHandle, &listviewItems, &numberOfItems))
                 {
                     menu = PhCreateEMenu();
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_COPY, L"&Copy", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_COPY, L"复制(&C)", NULL, NULL), ULONG_MAX);
                     PhInsertCopyListViewEMenuItem(menu, IDC_COPY, context->ListViewHandle);
 
                     item = PhShowEMenu(

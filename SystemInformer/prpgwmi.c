@@ -410,8 +410,8 @@ HRESULT PhpWmiProviderExecMethod(
         if (count == 0)
             break;
 
-        namespacePath = PhGetWbemClassObjectString(wbemClassObject, L"Namespace");
-        providerName = PhGetWbemClassObjectString(wbemClassObject, L"Provider");
+        namespacePath = PhGetWbemClassObjectString(wbemClassObject, L"命名空间");
+        providerName = PhGetWbemClassObjectString(wbemClassObject, L"提供程序");
         userName = PhGetWbemClassObjectString(wbemClassObject, L"User");
         relativePath = PhGetWbemClassObjectString(wbemClassObject, L"__RELPATH");
 
@@ -1029,8 +1029,8 @@ HRESULT PhpQueryWmiProviderHostProcess(
             break;
 
         entry = PhAllocateZero(sizeof(PH_WMI_ENTRY));
-        entry->ProviderNamespace = PhGetWbemClassObjectString(wbemClassObject, L"Namespace");
-        entry->ProviderName = PhGetWbemClassObjectString(wbemClassObject, L"Provider");
+        entry->ProviderNamespace = PhGetWbemClassObjectString(wbemClassObject, L"命名空间");
+        entry->ProviderName = PhGetWbemClassObjectString(wbemClassObject, L"提供程序");
         entry->UserName = PhGetWbemClassObjectString(wbemClassObject, L"User");
         //entry->InstancePath = PhGetWbemClassObjectString(wbemClassObject, L"__PATH");
         entry->RelativePath = PhGetWbemClassObjectString(wbemClassObject, L"__RELPATH");
@@ -1159,8 +1159,8 @@ HRESULT PhpQueryWmiProviderHostProcess(
             break;
 
         entry = PhAllocateZero(sizeof(PH_WMI_ENTRY));
-        entry->ProviderNamespace = PhGetMiClassObjectString(instance, L"Namespace");
-        entry->ProviderName = PhGetMiClassObjectString(instance, L"Provider");
+        entry->ProviderNamespace = PhGetMiClassObjectString(instance, L"命名空间");
+        entry->ProviderName = PhGetMiClassObjectString(instance, L"提供程序");
         entry->UserName = PhGetMiClassObjectString(instance, L"User");
         entry->RelativePath = PhGetMiClassObjectString(instance, L"__RELPATH");
 
@@ -1821,19 +1821,19 @@ VOID PhpShowWmiProviderNodeContextMenu(
 
     if (PhGetIntegerSetting(SETTING_WMI_PROVIDER_ENABLE_HIDDEN_MENU))
     {
-        PhInsertEMenuItem(menu, PhCreateEMenuItem(0, 1, L"&Suspend", NULL, NULL), ULONG_MAX);
-        PhInsertEMenuItem(menu, PhCreateEMenuItem(0, 2, L"Res&ume", NULL, NULL), ULONG_MAX);
-        PhInsertEMenuItem(menu, PhCreateEMenuItem(0, 3, L"Un&load", NULL, NULL), ULONG_MAX);
+        PhInsertEMenuItem(menu, PhCreateEMenuItem(0, 1, L"挂起(&S)", NULL, NULL), ULONG_MAX);
+        PhInsertEMenuItem(menu, PhCreateEMenuItem(0, 2, L"恢复(&R)", NULL, NULL), ULONG_MAX);
+        PhInsertEMenuItem(menu, PhCreateEMenuItem(0, 3, L"卸载(&L)", NULL, NULL), ULONG_MAX);
         PhInsertEMenuItem(menu, PhCreateEMenuSeparator(), ULONG_MAX);
     }
 
-    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, 4, L"&Inspect", NULL, NULL), ULONG_MAX);
+    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, 4, L"检查(&I)", NULL, NULL), ULONG_MAX);
     PhInsertEMenuItem(menu, PhCreateEMenuSeparator(), ULONG_MAX);
-    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, 5, L"S&tatistics", NULL, NULL), ULONG_MAX);
+    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, 5, L"统计(&S)", NULL, NULL), ULONG_MAX);
     PhInsertEMenuItem(menu, PhCreateEMenuSeparator(), ULONG_MAX);
-    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, 6, L"Open &file location", NULL, NULL), ULONG_MAX);
+    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, 6, L"打开文件位置(&F)", NULL, NULL), ULONG_MAX);
     PhInsertEMenuItem(menu, PhCreateEMenuSeparator(), ULONG_MAX);
-    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_COPY, L"&Copy", NULL, NULL), ULONG_MAX);
+    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_COPY, L"复制(&C)", NULL, NULL), ULONG_MAX);
     PhInsertCopyCellEMenuItem(menu, IDC_COPY, Context->TreeNewHandle, ContextMenuEvent->Column);
 
     selectedItem = PhShowEMenu(
@@ -2486,10 +2486,10 @@ VOID PhpInitializeWmiProviderTree(
     TreeNew_SetRedraw(Context->TreeNewHandle, FALSE);
 
     // Default columns
-    PhAddTreeNewColumn(Context->TreeNewHandle, PROCESS_WMI_COLUMN_ITEM_PROVIDER, TRUE, L"Provider", 140, PH_ALIGN_LEFT, 0, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PROCESS_WMI_COLUMN_ITEM_NAMESPACE, TRUE, L"Namespace", 180, PH_ALIGN_LEFT, 1, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PROCESS_WMI_COLUMN_ITEM_FILENAME, TRUE, L"File name", 260, PH_ALIGN_LEFT, 2, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PROCESS_WMI_COLUMN_ITEM_USER, TRUE, L"User", 80, PH_ALIGN_LEFT, 3, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PROCESS_WMI_COLUMN_ITEM_PROVIDER, TRUE, L"提供程序", 140, PH_ALIGN_LEFT, 0, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PROCESS_WMI_COLUMN_ITEM_NAMESPACE, TRUE, L"命名空间", 180, PH_ALIGN_LEFT, 1, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PROCESS_WMI_COLUMN_ITEM_FILENAME, TRUE, L"文件名", 260, PH_ALIGN_LEFT, 2, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PROCESS_WMI_COLUMN_ITEM_USER, TRUE, L"用户", 80, PH_ALIGN_LEFT, 3, 0);
 
     PhCmInitializeManager(&Context->Cm, Context->TreeNewHandle, PHMOTLC_MAXIMUM, PhpWmiProviderTreeNewPostSortFunction);
     PhInitializeTreeNewFilterSupport(&Context->TreeFilterSupport, Context->TreeNewHandle, Context->NodeList);
@@ -2727,8 +2727,8 @@ INT_PTR CALLBACK PhpProcessWmiProvidersDlgProc(
                     if (!PhGetWindowRect(GetDlgItem(hwndDlg, IDC_OPTIONS), &rect))
                         break;
 
-                    namespaceMenuItem = PhCreateEMenuItem(0, PROCESS_WMI_TREE_MENU_ITEM_HIDE_DEFAULT_NAMESPACE, L"Hide default namespace", NULL, NULL);
-                    highlightNamespaceMenuItem = PhCreateEMenuItem(0, PROCESS_WMI_TREE_MENU_ITEM_HIGHLIGHT_DEFAULT_NAMESPACE, L"Highlight default namespace", NULL, NULL);
+                    namespaceMenuItem = PhCreateEMenuItem(0, PROCESS_WMI_TREE_MENU_ITEM_HIDE_DEFAULT_NAMESPACE, L"隐藏默认命名空间(&D)", NULL, NULL);
+                    highlightNamespaceMenuItem = PhCreateEMenuItem(0, PROCESS_WMI_TREE_MENU_ITEM_HIGHLIGHT_DEFAULT_NAMESPACE, L"高亮默认命名空间(&D)", NULL, NULL);
 
                     menu = PhCreateEMenu();
                     PhInsertEMenuItem(menu, namespaceMenuItem, ULONG_MAX);

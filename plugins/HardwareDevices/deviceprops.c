@@ -225,7 +225,7 @@ VOID DeviceInitializeGeneralPage(
 
     PhSetWindowText(
         GetDlgItem(WindowHandle, IDC_DEVICE_NAME),
-        PhGetStringOrDefault(PhGetDeviceProperty(Context->DeviceItem, PhDevicePropertyName)->AsString, L"Unnamed Device")
+        PhGetStringOrDefault(PhGetDeviceProperty(Context->DeviceItem, PhDevicePropertyName)->AsString, L"未命名设备")
         );
     PhSetWindowText(
         GetDlgItem(WindowHandle, IDC_DEVICE_MANUFACTURER),
@@ -265,8 +265,8 @@ INT_PTR CALLBACK DevicePropGeneralDlgProc(
 
             PhSetListViewStyle(context->GeneralListViewHandle, FALSE, TRUE);
             PhSetControlTheme(context->GeneralListViewHandle, L"explorer");
-            PhAddListViewColumn(context->GeneralListViewHandle, 0, 0, 0, LVCFMT_LEFT, 180, L"Name");
-            PhAddListViewColumn(context->GeneralListViewHandle, 1, 1, 1, LVCFMT_LEFT, 300, L"Value");
+            PhAddListViewColumn(context->GeneralListViewHandle, 0, 0, 0, LVCFMT_LEFT, 180, L"名称");
+            PhAddListViewColumn(context->GeneralListViewHandle, 1, 1, 1, LVCFMT_LEFT, 300, L"值");
             PhSetExtendedListView(context->GeneralListViewHandle);
             PhLoadListViewColumnsFromSetting(SETTING_NAME_DEVICE_GENERAL_COLUMNS, context->GeneralListViewHandle);
             DeviceSetImageList(context->GeneralListViewHandle, context);
@@ -330,7 +330,7 @@ INT_PTR CALLBACK DevicePropGeneralDlgProc(
                 if (PhGetSelectedListViewItemParams(context->GeneralListViewHandle, &listviewItems, &numberOfItems))
                 {
                     menu = PhCreateEMenu();
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"&Copy", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"复制(&C)", NULL, NULL), ULONG_MAX);
                     PhInsertCopyListViewEMenuItem(menu, PHAPP_IDC_COPY, context->GeneralListViewHandle);
 
                     item = PhShowEMenu(
@@ -676,8 +676,8 @@ INT_PTR CALLBACK DevicePropPropertiesDlgProc(
 
             PhSetListViewStyle(context->PropsListViewHandle, FALSE, TRUE);
             PhSetControlTheme(context->PropsListViewHandle, L"explorer");
-            PhAddListViewColumn(context->PropsListViewHandle, 0, 0, 0, LVCFMT_LEFT, 160, L"Name");
-            PhAddListViewColumn(context->PropsListViewHandle, 1, 1, 1, LVCFMT_LEFT, 300, L"Value");
+            PhAddListViewColumn(context->PropsListViewHandle, 0, 0, 0, LVCFMT_LEFT, 160, L"名称");
+            PhAddListViewColumn(context->PropsListViewHandle, 1, 1, 1, LVCFMT_LEFT, 300, L"值");
             PhSetExtendedListView(context->PropsListViewHandle);
             PhLoadListViewColumnsFromSetting(SETTING_NAME_DEVICE_PROPERTIES_COLUMNS, context->PropsListViewHandle);
             DeviceSetImageList(context->PropsListViewHandle, context);
@@ -732,7 +732,7 @@ INT_PTR CALLBACK DevicePropPropertiesDlgProc(
                 if (PhGetSelectedListViewItemParams(context->PropsListViewHandle, &listviewItems, &numberOfItems))
                 {
                     menu = PhCreateEMenu();
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"&Copy", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"复制(&C)", NULL, NULL), ULONG_MAX);
                     PhInsertCopyListViewEMenuItem(menu, PHAPP_IDC_COPY, context->PropsListViewHandle);
 
                     item = PhShowEMenu(
@@ -849,8 +849,8 @@ INT_PTR CALLBACK DevicePropInterfacesDlgProc(
 
             PhSetListViewStyle(context->InterfacesListViewHandle, FALSE, TRUE);
             PhSetControlTheme(context->InterfacesListViewHandle, L"explorer");
-            PhAddListViewColumn(context->InterfacesListViewHandle, 0, 0, 0, LVCFMT_LEFT, 160, L"Name");
-            PhAddListViewColumn(context->InterfacesListViewHandle, 1, 1, 1, LVCFMT_LEFT, 300, L"Value");
+            PhAddListViewColumn(context->InterfacesListViewHandle, 0, 0, 0, LVCFMT_LEFT, 160, L"名称");
+            PhAddListViewColumn(context->InterfacesListViewHandle, 1, 1, 1, LVCFMT_LEFT, 300, L"值");
             PhSetExtendedListView(context->InterfacesListViewHandle);
 
             PhLoadListViewColumnsFromSetting(SETTING_NAME_DEVICE_INTERFACES_COLUMNS, context->InterfacesListViewHandle);
@@ -906,7 +906,7 @@ INT_PTR CALLBACK DevicePropInterfacesDlgProc(
                 if (PhGetSelectedListViewItemParams(context->InterfacesListViewHandle, &listviewItems, &numberOfItems))
                 {
                     menu = PhCreateEMenu();
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"&Copy", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"复制(&C)", NULL, NULL), ULONG_MAX);
                     PhInsertCopyListViewEMenuItem(menu, PHAPP_IDC_COPY, context->InterfacesListViewHandle);
 
                     item = PhShowEMenu(
@@ -971,8 +971,8 @@ INT_PTR CALLBACK DevicePropResourcesDlgProc(
 
             PhSetListViewStyle(context->ResourcesListViewHandle, FALSE, TRUE);
             PhSetControlTheme(context->ResourcesListViewHandle, L"explorer");
-            PhAddListViewColumn(context->ResourcesListViewHandle, 0, 0, 0, LVCFMT_LEFT, 160, L"Resource type");
-            PhAddListViewColumn(context->ResourcesListViewHandle, 1, 1, 1, LVCFMT_LEFT, 300, L"Setting");
+            PhAddListViewColumn(context->ResourcesListViewHandle, 0, 0, 0, LVCFMT_LEFT, 160, L"资源类型");
+            PhAddListViewColumn(context->ResourcesListViewHandle, 1, 1, 1, LVCFMT_LEFT, 300, L"设置");
             PhSetExtendedListView(context->ResourcesListViewHandle);
             PhLoadListViewColumnsFromSetting(SETTING_NAME_DEVICE_INTERFACES_COLUMNS, context->ResourcesListViewHandle);
             DeviceSetImageList(context->ResourcesListViewHandle, context);
@@ -1033,7 +1033,7 @@ INT_PTR CALLBACK DevicePropResourcesDlgProc(
                 if (PhGetSelectedListViewItemParams(context->ResourcesListViewHandle, &listviewItems, &numberOfItems))
                 {
                     menu = PhCreateEMenu();
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"&Copy", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"复制(&C)", NULL, NULL), ULONG_MAX);
                     PhInsertCopyListViewEMenuItem(menu, PHAPP_IDC_COPY, context->ResourcesListViewHandle);
 
                     item = PhShowEMenu(

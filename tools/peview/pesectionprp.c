@@ -15,8 +15,8 @@
 #include "../thirdparty/ssdeep/fuzzy.h"
 #include "../thirdparty/tlsh/tlsh_wrapper.h"
 
-static PH_STRINGREF EmptySectionsText = PH_STRINGREF_INIT(L"There are no sections to display.");
-static PH_STRINGREF LoadingSectionsText = PH_STRINGREF_INIT(L"Loading sections from image...");
+static PH_STRINGREF EmptySectionsText = PH_STRINGREF_INIT(L"没有要显示的节。");
+static PH_STRINGREF LoadingSectionsText = PH_STRINGREF_INIT(L"正在从映像加载节...");
 
 typedef enum _PV_SECTION_TREE_COLUMN_ITEM
 {
@@ -474,7 +474,7 @@ INT_PTR CALLBACK PvPeSectionsDlgProc(
             PvCreateSearchControl(
                 hwndDlg,
                 context->SearchHandle,
-                L"Search Sections (Ctrl+K)",
+                L"搜索节 (Ctrl+K)",
                 PvpPeSectionsSearchControlCallback,
                 context
                 );

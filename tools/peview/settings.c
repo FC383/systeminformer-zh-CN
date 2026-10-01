@@ -163,7 +163,7 @@ VOID PvInitializeSettings(
                 NULL,
                 TDCBF_YES_BUTTON | TDCBF_NO_BUTTON,
                 TD_WARNING_ICON,
-                L"PE View's settings file is corrupt. Do you want to reset it?",
+                L"PE 查看器的设置文件已损坏。是否要重置它？",
                 L"If you select No, the settings system will not function properly."
                 ) == IDYES)
             {

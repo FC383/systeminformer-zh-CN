@@ -858,8 +858,8 @@ VOID ShowGeoLiteUpdateDialog(
         config.pfCallback = GeoLiteMissingKeyTaskDialogCallbackProc;
         config.cxWidth = 200;
 
-        config.pszWindowTitle = L"Network Tools - GeoLite Updater";
-        config.pszMainInstruction = L"Unable to download GeoLite database updates.";
+        config.pszWindowTitle = L"网络工具 - GeoLite 更新程序";
+        config.pszMainInstruction = L"无法下载 GeoLite 数据库更新。";
         config.pszContent =
             L"A license key and account number are required to download GeoLite database updates and either the key or number are not configured.\n\n"
             L"GeoLite license keys and accounts are free. If you're unsure how to create keys then please review the documentation here: <a href=\"https://support.maxmind.com/hc/en-us/articles/4407111582235-Generate-a-License-Key\">Generate-a-License-Key</a>\n\n"

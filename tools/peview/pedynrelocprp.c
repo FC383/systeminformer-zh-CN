@@ -66,8 +66,8 @@ typedef struct _PV_PE_DYNRELOC_CONTEXT
     BOOLEAN Cancel;
 } PV_PE_DYNRELOC_CONTEXT, *PPV_PE_DYNRELOC_CONTEXT;
 
-static PH_STRINGREF LoadingDynRelocText = PH_STRINGREF_INIT(L"Loading dynamic relocations from image...");
-static PH_STRINGREF EmptyDynRelocText = PH_STRINGREF_INIT(L"There are no dynamic relocations to display.");
+static PH_STRINGREF LoadingDynRelocText = PH_STRINGREF_INIT(L"正在从映像加载动态重定位...");
+static PH_STRINGREF EmptyDynRelocText = PH_STRINGREF_INIT(L"没有要显示的动态重定位。");
 
 typedef struct _PV_DYNRELOC_OVERRIDE_GROUP
 {
@@ -1526,7 +1526,7 @@ INT_PTR CALLBACK PvpPeDynamicRelocationDlgProc(
             PvCreateSearchControl(
                 hwndDlg,
                 context->SearchHandle,
-                L"Search Relocations (Ctrl+K)",
+                L"搜索重定位 (Ctrl+K)",
                 PvpPeDynRelocSearchControlCallback,
                 context
                 );

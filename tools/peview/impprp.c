@@ -13,8 +13,8 @@
 #include <peview.h>
 #include "colmgr.h"
 
-static PH_STRINGREF EmptyImportsText = PH_STRINGREF_INIT(L"There are no imports to display.");
-static PH_STRINGREF LoadingImportsText = PH_STRINGREF_INIT(L"Loading imports from image...");
+static PH_STRINGREF EmptyImportsText = PH_STRINGREF_INIT(L"没有要显示的导入。");
+static PH_STRINGREF LoadingImportsText = PH_STRINGREF_INIT(L"正在从映像加载导入...");
 
 typedef enum _PV_IMPORT_TREE_COLUMN_ITEM
 {
@@ -467,7 +467,7 @@ INT_PTR CALLBACK PvPeImportsDlgProc(
             PvCreateSearchControl(
                 hwndDlg,
                 context->SearchHandle,
-                L"Search Imports (Ctrl+K)",
+                L"搜索导入 (Ctrl+K)",
                 PvpPeImportsSearchControlCallback,
                 context
                 );

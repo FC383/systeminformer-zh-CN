@@ -169,7 +169,7 @@ VOID NTAPI MainMenuInitializingCallback(
     else
         insertIndex = ULONG_MAX;
 
-    PhInsertEMenuItem(menuInfo->Menu, menuItem = PhPluginCreateEMenuItem(PluginInstance, 0, ID_VIEW_WINDOWS, L"&Windows", NULL), insertIndex);
+    PhInsertEMenuItem(menuInfo->Menu, menuItem = PhPluginCreateEMenuItem(PluginInstance, 0, ID_VIEW_WINDOWS, L"窗口(&W)", NULL), insertIndex);
 
     if (PhGetIntegerSetting(SETTING_NAME_SHOW_DESKTOP_WINDOWS))
     {
@@ -233,7 +233,7 @@ VOID NTAPI ThreadMenuInitializingCallback(
     else
         insertIndex = ULONG_MAX;
 
-    menuItem = PhPluginCreateEMenuItem(PluginInstance, 0, ID_THREAD_WINDOWS, L"&Windows", threadItem);
+    menuItem = PhPluginCreateEMenuItem(PluginInstance, 0, ID_THREAD_WINDOWS, L"窗口(&W)", threadItem);
     PhInsertEMenuItem(menuInfo->Menu, menuItem, insertIndex);
 
     if (!threadItem)
@@ -291,8 +291,8 @@ LOGICAL DllMain(
             if (!PluginInstance)
                 return FALSE;
 
-            info->DisplayName = L"Window Explorer";
-            info->Description = L"View and manipulate windows.";
+            info->DisplayName = L"窗口资源管理器";
+            info->Description = L"查看和操作窗口。";
 
             PhRegisterCallback(
                 PhGetPluginCallback(PluginInstance, PluginCallbackLoad),

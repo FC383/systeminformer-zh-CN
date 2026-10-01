@@ -741,7 +741,7 @@ INT_PTR CALLBACK EspPnPServiceDlgProc(
 
             PhSetListViewStyle(context->ListViewHandle, FALSE, TRUE);
             PhSetControlTheme(context->ListViewHandle, L"explorer");
-            PhAddListViewColumn(context->ListViewHandle, 0, 0, 0, LVCFMT_LEFT, 350, L"PnP Devices");
+            PhAddListViewColumn(context->ListViewHandle, 0, 0, 0, LVCFMT_LEFT, 350, L"PnP 设备");
             PhSetExtendedListView(context->ListViewHandle);
             ExtendedListView_SetColumnWidth(context->ListViewHandle, 0, ELVSCW_AUTOSIZE_REMAININGSPACE);
             if (PhWindowsVersion > WINDOWS_7)
@@ -764,7 +764,7 @@ INT_PTR CALLBACK EspPnPServiceDlgProc(
 
             if (context->ServiceItem->Type & SERVICE_DRIVER)
             {
-                PhSetDialogItemText(WindowHandle, IDC_MESSAGE, L"This service has registered the following PnP devices:");
+                PhSetDialogItemText(WindowHandle, IDC_MESSAGE, L"此服务已注册以下 PnP 设备:");
 
                 if (!EspEnumerateDriverPnpDevices(context))
                 {
@@ -773,7 +773,7 @@ INT_PTR CALLBACK EspPnPServiceDlgProc(
             }
             else
             {
-                PhSetDialogItemText(WindowHandle, IDC_MESSAGE, L"This service type doesn't support PnP devices.");
+                PhSetDialogItemText(WindowHandle, IDC_MESSAGE, L"此服务类型不支持 PnP 设备。");
                 ShowWindow(context->ListViewHandle, SW_HIDE);
             }
 

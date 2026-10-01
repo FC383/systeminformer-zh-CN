@@ -685,7 +685,7 @@ VOID PvLayoutSetStatusMessage(
     statusMessage = PhGetStatusMessage(Status, 0);
     PhMoveReference(&Context->StatusMessage, PhConcatStrings2(
         L"Unable to query file layout information:\n",
-        PhGetStringOrDefault(statusMessage, L"Unknown error.")
+        PhGetStringOrDefault(statusMessage, L"未知错误。")
         ));
     TreeNew_SetEmptyText(Context->TreeNewHandle, &Context->StatusMessage->sr, 0);
     PhClearReference(&statusMessage);
@@ -1310,7 +1310,7 @@ INT_PTR CALLBACK PvpPeLayoutDlgProc(
             PvCreateSearchControl(
                 hwndDlg,
                 context->SearchHandle,
-                L"Search Layout (Ctrl+K)",
+                L"搜索布局 (Ctrl+K)",
                 PvpPeLayoutSearchControlCallback,
                 context
                 );

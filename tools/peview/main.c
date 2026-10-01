@@ -119,7 +119,7 @@ INT WINAPI wWinMain(
     };
     PH_STRINGREF commandLine;
 
-    if (!NT_SUCCESS(PhInitializePhLib(L"PE Viewer")))
+    if (!NT_SUCCESS(PhInitializePhLib(L"PE 查看器")))
         return 1;
     if (!PvInitializeExceptionPolicy())
         return 1;
@@ -135,11 +135,11 @@ INT WINAPI wWinMain(
         PvInitializeSuperclassControls();
         PhShowWarning2(
             NULL,
-            L"Warning.",
+            L"警告。",
             L"%s",
             L"You are attempting to run the 32-bit version of PE Viewer on 64-bit Windows. "
             L"Most features will not work correctly.\n\n"
-            L"Please run the 64-bit version of PE Viewer instead."
+            L"请改为运行 64 位版本的 PE 查看器。"
             );
         PhExitApplication(STATUS_IMAGE_SUBSYSTEM_NOT_PRESENT);
     }
@@ -324,9 +324,9 @@ INT WINAPI wWinMain(
         if (!NT_SUCCESS(status))
         {
             if (status == STATUS_IMAGE_SUBSYSTEM_NOT_PRESENT)
-                PhShowError2(NULL, L"Unable to load the file.", L"%s", L"PE Viewer does not support this image type.");
+                PhShowError2(NULL, L"无法加载文件。", L"%s", L"PE 查看器不支持此映像类型。");
             else
-                PhShowStatus(NULL, L"Unable to load the file.", status, 0);
+                PhShowStatus(NULL, L"无法加载文件。", status, 0);
         }
     }
 

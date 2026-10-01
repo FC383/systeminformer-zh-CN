@@ -15,8 +15,8 @@
 #include "../thirdparty/ssdeep/fuzzy.h"
 #include "../thirdparty/tlsh/tlsh_wrapper.h"
 
-static PH_STRINGREF EmptyDirectoriesText = PH_STRINGREF_INIT(L"There are no directories to display.");
-static PH_STRINGREF LoadingDirectoriesText = PH_STRINGREF_INIT(L"Loading directories from image...");
+static PH_STRINGREF EmptyDirectoriesText = PH_STRINGREF_INIT(L"没有要显示的目录。");
+static PH_STRINGREF LoadingDirectoriesText = PH_STRINGREF_INIT(L"正在从映像加载目录...");
 
 typedef enum _PV_DIRECTORY_TREE_COLUMN_ITEM
 {
@@ -431,7 +431,7 @@ INT_PTR CALLBACK PvPeDirectoryDlgProc(
             PvCreateSearchControl(
                 hwndDlg,
                 context->SearchHandle,
-                L"Search Directories (Ctrl+K)",
+                L"搜索目录 (Ctrl+K)",
                 PvpPeDirectorySearchControl,
                 context
                 );

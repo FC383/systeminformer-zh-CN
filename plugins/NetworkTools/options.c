@@ -189,12 +189,12 @@ INT_PTR CALLBACK OptionsGeoLiteDlgProc(
 
             if (id == IDC_KEYTEXT)
             {
-                PhSetDialogItemText(WindowHandle, IDC_KEYTEXT_L, L"Paste the license key here:");
+                PhSetDialogItemText(WindowHandle, IDC_KEYTEXT_L, L"在此处粘贴许可证密钥:");
                 PhSetDialogItemText(WindowHandle, IDC_KEY_EDIT, PhaGetStringSetting(SETTING_NAME_GEOLITE_API_KEY)->Buffer);
             }
             else
             {
-                PhSetDialogItemText(WindowHandle, IDC_KEYTEXT_L, L"Paste the account id here:");
+                PhSetDialogItemText(WindowHandle, IDC_KEYTEXT_L, L"在此处粘贴账户 ID:");
                 PhSetDialogItemText(WindowHandle, IDC_KEY_EDIT, PhaGetStringSetting(SETTING_NAME_GEOLITE_API_ID)->Buffer);
             }
 

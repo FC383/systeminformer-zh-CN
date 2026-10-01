@@ -272,12 +272,12 @@ INT_PTR CALLBACK PhpJobPageProc(
             PhSetExtendedListView(processesLv);
             PhSetExtendedListView(limitsLv);
 
-            PhAddListViewColumn(processesLv, 0, 0, 0, LVCFMT_LEFT, 240, L"Name");
-            PhAddListViewColumn(limitsLv, 0, 0, 0, LVCFMT_LEFT, 120, L"Name");
-            PhAddListViewColumn(limitsLv, 1, 1, 1, LVCFMT_LEFT, 160, L"Value");
+            PhAddListViewColumn(processesLv, 0, 0, 0, LVCFMT_LEFT, 240, L"名称");
+            PhAddListViewColumn(limitsLv, 0, 0, 0, LVCFMT_LEFT, 120, L"名称");
+            PhAddListViewColumn(limitsLv, 1, 1, 1, LVCFMT_LEFT, 160, L"值");
             PhLoadListViewColumnsFromSetting(SETTING_JOB_LIST_VIEW_COLUMNS, limitsLv);
 
-            PhSetDialogItemText(hwndDlg, IDC_NAME, L"Unknown");
+            PhSetDialogItemText(hwndDlg, IDC_NAME, L"未知");
 
             if (NT_SUCCESS(jobPageContext->OpenObject(
                 &jobHandle,
@@ -305,7 +305,7 @@ INT_PTR CALLBACK PhpJobPageProc(
                 if (jobObjectName && jobObjectName->Length == 0)
                     jobObjectName = NULL;
 
-                PhSetDialogItemText(hwndDlg, IDC_NAME, PhGetStringOrDefault(jobObjectName, L"(unnamed job)"));
+                PhSetDialogItemText(hwndDlg, IDC_NAME, PhGetStringOrDefault(jobObjectName, L"(未命名作业)"));
 
                 // Processes
                 PhpAddJobProcesses(hwndDlg, jobHandle);
@@ -568,7 +568,7 @@ INT_PTR CALLBACK PhpJobPageProc(
                 if (PhGetSelectedListViewItemParams(listViewHandle, &listviewItems, &numberOfItems))
                 {
                     menu = PhCreateEMenu();
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_COPY, L"&Copy", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_COPY, L"复制(&C)", NULL, NULL), ULONG_MAX);
                     PhInsertCopyListViewEMenuItem(menu, IDC_COPY, listViewHandle);
 
                     item = PhShowEMenu(
@@ -711,23 +711,23 @@ static VOID PhpRefreshJobStatisticsInfo(
     }
     else
     {
-        PhSetDialogItemText(hwndDlg, IDC_ZACTIVEPROCESSES_V, L"Unknown");
-        PhSetDialogItemText(hwndDlg, IDC_ZTOTALPROCESSES_V, L"Unknown");
-        PhSetDialogItemText(hwndDlg, IDC_ZTERMINATEDPROCESSES_V, L"Unknown");
+        PhSetDialogItemText(hwndDlg, IDC_ZACTIVEPROCESSES_V, L"未知");
+        PhSetDialogItemText(hwndDlg, IDC_ZTOTALPROCESSES_V, L"未知");
+        PhSetDialogItemText(hwndDlg, IDC_ZTERMINATEDPROCESSES_V, L"未知");
 
-        PhSetDialogItemText(hwndDlg, IDC_ZUSERTIME_V, L"Unknown");
-        PhSetDialogItemText(hwndDlg, IDC_ZKERNELTIME_V, L"Unknown");
-        PhSetDialogItemText(hwndDlg, IDC_ZUSERTIMEPERIOD_V, L"Unknown");
-        PhSetDialogItemText(hwndDlg, IDC_ZKERNELTIMEPERIOD_V, L"Unknown");
+        PhSetDialogItemText(hwndDlg, IDC_ZUSERTIME_V, L"未知");
+        PhSetDialogItemText(hwndDlg, IDC_ZKERNELTIME_V, L"未知");
+        PhSetDialogItemText(hwndDlg, IDC_ZUSERTIMEPERIOD_V, L"未知");
+        PhSetDialogItemText(hwndDlg, IDC_ZKERNELTIMEPERIOD_V, L"未知");
 
-        PhSetDialogItemText(hwndDlg, IDC_ZPAGEFAULTS_V, L"Unknown");
+        PhSetDialogItemText(hwndDlg, IDC_ZPAGEFAULTS_V, L"未知");
 
-        PhSetDialogItemText(hwndDlg, IDC_ZIOREADS_V, L"Unknown");
-        PhSetDialogItemText(hwndDlg, IDC_ZIOREADBYTES_V, L"Unknown");
-        PhSetDialogItemText(hwndDlg, IDC_ZIOWRITES_V, L"Unknown");
-        PhSetDialogItemText(hwndDlg, IDC_ZIOWRITEBYTES_V, L"Unknown");
-        PhSetDialogItemText(hwndDlg, IDC_ZIOOTHER_V, L"Unknown");
-        PhSetDialogItemText(hwndDlg, IDC_ZIOOTHERBYTES_V, L"Unknown");
+        PhSetDialogItemText(hwndDlg, IDC_ZIOREADS_V, L"未知");
+        PhSetDialogItemText(hwndDlg, IDC_ZIOREADBYTES_V, L"未知");
+        PhSetDialogItemText(hwndDlg, IDC_ZIOWRITES_V, L"未知");
+        PhSetDialogItemText(hwndDlg, IDC_ZIOWRITEBYTES_V, L"未知");
+        PhSetDialogItemText(hwndDlg, IDC_ZIOOTHER_V, L"未知");
+        PhSetDialogItemText(hwndDlg, IDC_ZIOOTHERBYTES_V, L"未知");
     }
 
     if (jobHandle && NT_SUCCESS(PhGetJobExtendedLimits(
@@ -740,8 +740,8 @@ static VOID PhpRefreshJobStatisticsInfo(
     }
     else
     {
-        PhSetDialogItemText(hwndDlg, IDC_ZPEAKPROCESSUSAGE_V, L"Unknown");
-        PhSetDialogItemText(hwndDlg, IDC_ZPEAKJOBUSAGE_V, L"Unknown");
+        PhSetDialogItemText(hwndDlg, IDC_ZPEAKPROCESSUSAGE_V, L"未知");
+        PhSetDialogItemText(hwndDlg, IDC_ZPEAKJOBUSAGE_V, L"未知");
     }
 
     if (jobHandle)

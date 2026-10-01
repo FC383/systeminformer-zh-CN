@@ -306,7 +306,7 @@ VOID NTAPI ShowOptionsCallback(
     PPH_PLUGIN_OPTIONS_POINTERS optionsEntry = (PPH_PLUGIN_OPTIONS_POINTERS)Parameter;
 
     optionsEntry->CreateSection(
-        L"UserNotes",
+        L"用户备注",
         PluginInstance->DllBase,
         MAKEINTRESOURCE(IDD_OPTIONS),
         OptionsDlgProc,
@@ -326,7 +326,7 @@ VOID NTAPI MainMenuInitializingCallback(
     if (menuInfo->u.MainMenu.SubMenuIndex != PH_MENU_ITEM_LOCATION_TOOLS)
         return;
 
-    onlineMenuItem = PhPluginCreateEMenuItem(PluginInstance, 0, 0, L"&User Notes", NULL);
+    onlineMenuItem = PhPluginCreateEMenuItem(PluginInstance, 0, 0, L"用户备注(&U)", NULL);
     PhInsertEMenuItem(onlineMenuItem, PhPluginCreateEMenuItem(PluginInstance, 0, FILE_PRIORITY_SAVE_IFEO, L"Configure priority for executable...", NULL), ULONG_MAX);
     PhInsertEMenuItem(onlineMenuItem, PhPluginCreateEMenuItem(PluginInstance, 0, FILE_IO_PRIORITY_SAVE_IFEO, L"Configure IO priority for executable...", NULL), ULONG_MAX);
     PhInsertEMenuItem(onlineMenuItem, PhPluginCreateEMenuItem(PluginInstance, 0, FILE_PAGE_PRIORITY_SAVE_IFEO, L"Configure page priority for executable...", NULL), ULONG_MAX);
@@ -2177,7 +2177,7 @@ VOID AddSavePriorityMenuItemsAndHook(
         ULONG index = PhIndexOfEMenuItem(MenuInfo->Menu, affinityMenuItem);
         PhRemoveEMenuItem(MenuInfo->Menu, affinityMenuItem, 0);
 
-        affinityMenuItem = PhPluginCreateEMenuItem(PluginInstance, 0, 0, L"&Affinity", NULL);
+        affinityMenuItem = PhPluginCreateEMenuItem(PluginInstance, 0, 0, L"相关性(&A)", NULL);
         PhInsertEMenuItem(affinityMenuItem, PhPluginCreateEMenuItem(PluginInstance, 0, PROCESS_AFFINITY_ID, L"Set &affinity", NULL), ULONG_MAX);
         PhInsertEMenuItem(affinityMenuItem, PhCreateEMenuSeparator(), ULONG_MAX);
         PhInsertEMenuItem(affinityMenuItem, saveMenuItem = PhPluginCreateEMenuItem(PluginInstance, 0, PROCESS_AFFINITY_SAVE_ID, PhaFormatString(L"&Save for %s", ProcessItem->ProcessName->Buffer)->Buffer, NULL), ULONG_MAX);
@@ -2200,7 +2200,7 @@ VOID AddSavePriorityMenuItemsAndHook(
     // Boost
     if (affinityMenuItem)
     {
-        boostMenuItem = PhPluginCreateEMenuItem(PluginInstance, 0, 0, L"&Boost", NULL);
+        boostMenuItem = PhPluginCreateEMenuItem(PluginInstance, 0, 0, L"提升(&B)", NULL);
         PhInsertEMenuItem(boostMenuItem, boostPluginMenuItem = PhPluginCreateEMenuItem(PluginInstance, 0, PROCESS_BOOST_PRIORITY_ID, L"Set &boost", NULL), ULONG_MAX);
         PhInsertEMenuItem(boostMenuItem, PhCreateEMenuSeparator(), ULONG_MAX);
         PhInsertEMenuItem(boostMenuItem, saveMenuItem = PhPluginCreateEMenuItem(PluginInstance, 0, PROCESS_BOOST_PRIORITY_SAVE_ID, PhaFormatString(L"&Save for %s", ProcessItem->ProcessName->Buffer)->Buffer, NULL), ULONG_MAX);
@@ -2233,7 +2233,7 @@ VOID AddSavePriorityMenuItemsAndHook(
     // Efficiency
     if (boostMenuItem)
     {
-        efficiencyMenuItem = PhPluginCreateEMenuItem(PluginInstance, 0, 0, L"&Efficiency", NULL);
+        efficiencyMenuItem = PhPluginCreateEMenuItem(PluginInstance, 0, 0, L"节能(&E)", NULL);
         PhInsertEMenuItem(efficiencyMenuItem, efficiencyPluginMenuItem = PhPluginCreateEMenuItem(PluginInstance, 0, PROCESS_EFFICIENCY_ID, L"Set &efficiency mode", NULL), ULONG_MAX);
         PhInsertEMenuItem(efficiencyMenuItem, PhCreateEMenuSeparator(), ULONG_MAX);
         PhInsertEMenuItem(efficiencyMenuItem, saveMenuItem = PhPluginCreateEMenuItem(PluginInstance, 0, PROCESS_EFFICIENCY_SAVE_ID, PhaFormatString(L"&Save for %s", ProcessItem->ProcessName->Buffer)->Buffer, NULL), ULONG_MAX);
@@ -2873,7 +2873,7 @@ LOGICAL DllMain(
         if (!PluginInstance)
             return FALSE;
 
-        info->DisplayName = L"User Notes";
+        info->DisplayName = L"用户备注";
         info->Description = L"Allows the user to add comments for processes and services,"
             L" save process priority and affinity, highlight individual processes and show processes collapsed by default.";
 

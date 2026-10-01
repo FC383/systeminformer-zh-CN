@@ -32,7 +32,7 @@ static VOID OptionsRefreshKeyStatus(
     PhDereferenceObject(key);
 
     PhSetDialogItemText(WindowHandle, LabelId,
-        *Configured ? L"Set - using your key" : L"Unset - optional");
+        *Configured ? L"设置 - 使用您的密钥" : L"取消设置 - 可选");
     InvalidateRect(GetDlgItem(WindowHandle, LabelId), NULL, TRUE);
 }
 

@@ -167,3 +167,7 @@ build-*/
 !KSystemInformer/bin-signed/*/systeminformer.pdb
 !tools/CustomSignTool/bin/Release*/CustomSignTool.exe
 !tools/fixlib/bin/Release/fixlib.exe
+
+# 本地汉化工具与构建日志
+/.tools/
+*.log

@@ -111,7 +111,7 @@ BOOLEAN NetworkDeviceGraphMessageCallback(
  
      if (mediaState == MediaConnectStateConnected)
      {
-         PhSetWindowText(Context->NetAdapterPanelStateLabel, L"Connected");
+         PhSetWindowText(Context->NetAdapterPanelStateLabel, L"已连接");
  
          //PhInitFormatSR(&format[0], PH_AUTO_T(PH_STRING, NetAdapterFormatBitratePrefix(linkSpeedValue))->sr);
          PhInitFormatSize(&format[0], linkSpeedValue / BITS_IN_ONE_BYTE);
@@ -130,7 +130,7 @@ BOOLEAN NetworkDeviceGraphMessageCallback(
      }
      else
      {
-         PhSetWindowText(Context->NetAdapterPanelStateLabel, L"Disconnected");
+         PhSetWindowText(Context->NetAdapterPanelStateLabel, L"已断开");
          PhSetWindowText(Context->NetAdapterPanelSpeedLabel, L"N/A");
      }
  
@@ -567,9 +567,9 @@ VOID NetworkDeviceUpdateTitle(
     if (Context->AdapterEntry->PendingQuery)
     {
         if (Context->AdapterTextLabel)
-            PhSetWindowText(Context->AdapterTextLabel, L"Pending...");
+            PhSetWindowText(Context->AdapterTextLabel, L"等待中...");
         if (Context->AdapterNameLabel)
-            PhSetWindowText(Context->AdapterNameLabel, L"Pending...");
+            PhSetWindowText(Context->AdapterNameLabel, L"等待中...");
     }
     else
     {
@@ -885,7 +885,7 @@ BOOLEAN NetworkDeviceSectionCallback(
             PH_FORMAT format[4];
 
             if (context->AdapterEntry->PendingQuery)
-                PhMoveReference(&drawPanel->Title, PhCreateString(L"Pending..."));
+                PhMoveReference(&drawPanel->Title, PhCreateString(L"等待中..."));
             else
             {
                 if (context->AdapterEntry->AdapterAlias)

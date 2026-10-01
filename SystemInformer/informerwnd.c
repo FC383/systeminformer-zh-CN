@@ -2175,7 +2175,7 @@ PPH_STRING PhpInformerFormatDetailsText(
                     PH_STRINGREF_INIT(L"Read"),                 // 1
                     PH_STRINGREF_INIT(L"Write"),                // 2
                     PH_STRINGREF_INIT(L"Read, Write"),          // 3
-                    PH_STRINGREF_INIT(L"Delete"),               // 4
+                    PH_STRINGREF_INIT(L"删除(&D)"),               // 4
                     PH_STRINGREF_INIT(L"Read, Delete"),         // 5
                     PH_STRINGREF_INIT(L"Write, Delete"),        // 6
                     PH_STRINGREF_INIT(L"Read, Write, Delete"),  // 7
@@ -2982,7 +2982,7 @@ BOOLEAN NTAPI PhpInformerTreeNewCallback(
             NT_ASSERT(context);
 
             menu = PhCreateEMenu();
-            PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_COPY, L"&Copy\bCtrl+C", NULL, NULL), ULONG_MAX);
+            PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_COPY, L"复制(&C)\bCtrl+C", NULL, NULL), ULONG_MAX);
             PhInsertCopyCellEMenuItem(menu, IDC_COPY, context->TreeNewHandle, contextMenu->Column);
 
             selectedItem = PhShowEMenu(
@@ -3047,17 +3047,17 @@ VOID PhpInformerInitializeColumns(
     TreeNew_SetSort(tn, PHIC_TIME, NoSortOrder);
 
     PhAddTreeNewColumn(tn, PHIC_TIME, TRUE, L"Time", 140, PH_ALIGN_RIGHT, 0, DT_RIGHT);
-    PhAddTreeNewColumn(tn, PHIC_DURATION, FALSE, L"Duration", 70, PH_ALIGN_RIGHT, 1, DT_RIGHT);
-    PhAddTreeNewColumn(tn, PHIC_PROCESS,TRUE, L"Process", 120, PH_ALIGN_LEFT, 2, 0);
+    PhAddTreeNewColumn(tn, PHIC_DURATION, FALSE, L"持续时间", 70, PH_ALIGN_RIGHT, 1, DT_RIGHT);
+    PhAddTreeNewColumn(tn, PHIC_PROCESS,TRUE, L"进程", 120, PH_ALIGN_LEFT, 2, 0);
     PhAddTreeNewColumn(tn, PHIC_PID, TRUE, L"PID", 50, PH_ALIGN_RIGHT, 3, DT_RIGHT);
     PhAddTreeNewColumn(tn, PHIC_TID, TRUE, L"TID", 50, PH_ALIGN_RIGHT, 4, DT_RIGHT);
-    PhAddTreeNewColumn(tn, PHIC_START_KEY, FALSE, L"Start key", 140, PH_ALIGN_LEFT, 5, 0);
+    PhAddTreeNewColumn(tn, PHIC_START_KEY, FALSE, L"启动键", 140, PH_ALIGN_LEFT, 5, 0);
     PhAddTreeNewColumn(tn, PHIC_ATTACHED_PROCESS, FALSE, L"Attached process", 120, PH_ALIGN_LEFT, 6, 0);
     PhAddTreeNewColumn(tn, PHIC_ATTACHED_PID, FALSE, L"Attached PID", 60, PH_ALIGN_RIGHT, 7, DT_RIGHT);
     PhAddTreeNewColumn(tn, PHIC_ATTACHED_START_KEY, FALSE, L"Attached start key", 140, PH_ALIGN_LEFT, 8, 0);
     PhAddTreeNewColumn(tn, PHIC_CATEGORY, TRUE, L"Category", 60, PH_ALIGN_LEFT, 9, 0);
     PhAddTreeNewColumn(tn, PHIC_EVENT, TRUE, L"Event", 100, PH_ALIGN_LEFT, 10, 0);
-    PhAddTreeNewColumn(tn, PHIC_PATH, TRUE, L"Path", 200, PH_ALIGN_LEFT, 11, DT_PATH_ELLIPSIS);
+    PhAddTreeNewColumn(tn, PHIC_PATH, TRUE, L"路径", 200, PH_ALIGN_LEFT, 11, DT_PATH_ELLIPSIS);
     PhAddTreeNewColumn(tn, PHIC_RESULT, TRUE, L"Result", 60, PH_ALIGN_LEFT, 12, 0);
     PhAddTreeNewColumn(tn, PHIC_DETAILS, TRUE, L"Details", 200, PH_ALIGN_LEFT, 13, 0);
 

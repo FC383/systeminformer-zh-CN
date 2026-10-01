@@ -1012,7 +1012,7 @@ PVOID PhUiCreateComputerBootDeviceMenu(
     PPH_EMENU_ITEM menuItem;
     PPH_LIST bootApplicationList;
 
-    menuItem = PhCreateEMenuItem(PH_EMENU_DISABLED, ID_COMPUTER_RESTARTBOOTDEVICE, L"Restart to boot application", NULL, NULL);
+    menuItem = PhCreateEMenuItem(PH_EMENU_DISABLED, ID_COMPUTER_RESTARTBOOTDEVICE, L"重启到启动应用程序(&B)", NULL, NULL);
 
     if (!PhGetOwnTokenAttributes().Elevated)
         return menuItem;
@@ -1063,7 +1063,7 @@ PVOID PhUiCreateComputerFirmwareDeviceMenu(
     PPH_EMENU_ITEM menuItem;
     PPH_LIST firmwareApplicationList;
 
-    menuItem = PhCreateEMenuItem(PH_EMENU_DISABLED, ID_COMPUTER_RESTARTFWDEVICE, L"Restart to firmware application", NULL, NULL);
+    menuItem = PhCreateEMenuItem(PH_EMENU_DISABLED, ID_COMPUTER_RESTARTFWDEVICE, L"重启到固件应用程序(&F)", NULL, NULL);
 
     if (!PhGetOwnTokenAttributes().Elevated)
         return menuItem;
@@ -1329,13 +1329,13 @@ VOID PhUiCreateSessionMenu(
         PhDereferenceObject(escapedMenuText);
         PhDereferenceObject(entry->UserName);
 
-        PhInsertEMenuItem(userMenu, PhCreateEMenuItem(0, ID_USER_CONNECT, L"&Connect", NULL, NULL), ULONG_MAX);
-        PhInsertEMenuItem(userMenu, PhCreateEMenuItem(0, ID_USER_DISCONNECT, L"&Disconnect", NULL, NULL), ULONG_MAX);
-        PhInsertEMenuItem(userMenu, PhCreateEMenuItem(0, ID_USER_LOGOFF, L"&Logoff", NULL, NULL), ULONG_MAX);
-        PhInsertEMenuItem(userMenu, PhCreateEMenuItem(0, ID_USER_REMOTECONTROL, L"Rem&ote control", NULL, NULL), ULONG_MAX);
-        PhInsertEMenuItem(userMenu, PhCreateEMenuItem(0, ID_USER_SENDMESSAGE, L"Send &message...", NULL, NULL), ULONG_MAX);
+        PhInsertEMenuItem(userMenu, PhCreateEMenuItem(0, ID_USER_CONNECT, L"连接(&C)", NULL, NULL), ULONG_MAX);
+        PhInsertEMenuItem(userMenu, PhCreateEMenuItem(0, ID_USER_DISCONNECT, L"断开连接(&D)", NULL, NULL), ULONG_MAX);
+        PhInsertEMenuItem(userMenu, PhCreateEMenuItem(0, ID_USER_LOGOFF, L"注销(&L)", NULL, NULL), ULONG_MAX);
+        PhInsertEMenuItem(userMenu, PhCreateEMenuItem(0, ID_USER_REMOTECONTROL, L"远程控制(&O)", NULL, NULL), ULONG_MAX);
+        PhInsertEMenuItem(userMenu, PhCreateEMenuItem(0, ID_USER_SENDMESSAGE, L"发送消息(&M)...", NULL, NULL), ULONG_MAX);
         PhInsertEMenuItem(userMenu, PhCreateEMenuSeparator(), ULONG_MAX);
-        PhInsertEMenuItem(userMenu, PhCreateEMenuItem(0, ID_USER_PROPERTIES, L"P&roperties", NULL, NULL), ULONG_MAX);
+        PhInsertEMenuItem(userMenu, PhCreateEMenuItem(0, ID_USER_PROPERTIES, L"属性(&P)", NULL, NULL), ULONG_MAX);
         PhInsertEMenuItem(UsersMenuItem, userMenu, ULONG_MAX);
     }
 
@@ -4622,7 +4622,7 @@ NTSTATUS PhpUiServicePendingStartCallback(
             PPH_STRING message;
             PPH_STRING content;
 
-            message = PhFormatString(L"Unable to %s one or more services:", Context->Verb);
+            message = PhFormatString(L"无法%s一个或多个服务：", Context->Verb);
             content = PhFinalStringBuilderString(&stringBuilder);
 
             InterlockedExchangePointer(&Context->StatusMessage, message);

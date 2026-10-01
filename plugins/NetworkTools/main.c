@@ -59,7 +59,7 @@ VOID NTAPI ShowOptionsCallback(
     PPH_PLUGIN_OPTIONS_POINTERS optionsEntry = (PPH_PLUGIN_OPTIONS_POINTERS)Parameter;
 
     optionsEntry->CreateSection(
-        L"NetworkTools",
+        L"网络工具",
         PluginInstance->DllBase,
         MAKEINTRESOURCE(IDD_OPTIONS),
         OptionsDlgProc,
@@ -1040,8 +1040,8 @@ LOGICAL DllMain(
             if (!PluginInstance)
                 return FALSE;
 
-            info->DisplayName = L"Network Tools";
-            info->Description = L"Provides ping, traceroute and whois for network connections.";
+            info->DisplayName = L"网络工具";
+            info->Description = L"为网络连接提供 ping、traceroute 和 whois。";
             info->Interface = &PluginInterface;
 
             PhRegisterCallback(

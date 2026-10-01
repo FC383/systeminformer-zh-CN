@@ -232,8 +232,8 @@ static VOID PhpOptionsShowHideTreeViewItem(
     _In_ BOOLEAN Hide
     )
 {
-    static CONST PH_STRINGREF generalName = PH_STRINGREF_INIT(L"General");
-    static CONST PH_STRINGREF advancedName = PH_STRINGREF_INIT(L"Advanced");
+    static CONST PH_STRINGREF generalName = PH_STRINGREF_INIT(L"常规");
+    static CONST PH_STRINGREF advancedName = PH_STRINGREF_INIT(L"高级");
 
     if (Hide)
     {
@@ -284,7 +284,7 @@ static VOID PhReloadGeneralSection(
     VOID
     )
 {
-    static PH_STRINGREF generalName = PH_STRINGREF_INIT(L"General");
+    static PH_STRINGREF generalName = PH_STRINGREF_INIT(L"常规");
 
     GeneralListViewStateInitializing = TRUE;
     PhpAdvancedPageLoad(PhOptionsFindSection(&generalName)->DialogHandle, TRUE);
@@ -295,7 +295,7 @@ static VOID PhReloadThemesSection(
     VOID
     )
 {
-    static PH_STRINGREF themesName = PH_STRINGREF_INIT(L"Themes");
+    static PH_STRINGREF themesName = PH_STRINGREF_INIT(L"主题");
     PPH_OPTIONS_SECTION section;
 
     section = PhOptionsFindSection(&themesName);
@@ -453,12 +453,12 @@ INT_PTR CALLBACK PhOptionsDialogProc(
                 SectionList = PhCreateList(8);
                 CurrentSection = NULL;
 
-                section = PhOptionsCreateSection(L"General", PhInstanceHandle, MAKEINTRESOURCE(IDD_OPTGENERAL), PhpOptionsGeneralDlgProc, NULL);
-                PhOptionsCreateSectionAdvanced(L"Advanced", PhInstanceHandle, MAKEINTRESOURCE(IDD_OPTADVANCED), PhpOptionsAdvancedDlgProc, NULL);
-                PhOptionsCreateSection(L"Highlighting", PhInstanceHandle, MAKEINTRESOURCE(IDD_OPTHIGHLIGHTING), PhpOptionsHighlightingDlgProc, NULL);
-                PhOptionsCreateSection(L"Tray Icon", PhInstanceHandle, MAKEINTRESOURCE(IDD_OPTTRAYICON), PhpOptionsTrayIconDlgProc, NULL);
-                PhOptionsCreateSection(L"Graphs", PhInstanceHandle, MAKEINTRESOURCE(IDD_OPTGRAPHS), PhpOptionsGraphsDlgProc, NULL);
-                PhOptionsCreateSection(L"Plugins", PhInstanceHandle, MAKEINTRESOURCE(IDD_PLUGINS), PhPluginsDlgProc, NULL);
+                section = PhOptionsCreateSection(L"常规", PhInstanceHandle, MAKEINTRESOURCE(IDD_OPTGENERAL), PhpOptionsGeneralDlgProc, NULL);
+                PhOptionsCreateSectionAdvanced(L"高级", PhInstanceHandle, MAKEINTRESOURCE(IDD_OPTADVANCED), PhpOptionsAdvancedDlgProc, NULL);
+                PhOptionsCreateSection(L"高亮", PhInstanceHandle, MAKEINTRESOURCE(IDD_OPTHIGHLIGHTING), PhpOptionsHighlightingDlgProc, NULL);
+                PhOptionsCreateSection(L"托盘图标", PhInstanceHandle, MAKEINTRESOURCE(IDD_OPTTRAYICON), PhpOptionsTrayIconDlgProc, NULL);
+                PhOptionsCreateSection(L"图表", PhInstanceHandle, MAKEINTRESOURCE(IDD_OPTGRAPHS), PhpOptionsGraphsDlgProc, NULL);
+                PhOptionsCreateSection(L"插件", PhInstanceHandle, MAKEINTRESOURCE(IDD_PLUGINS), PhPluginsDlgProc, NULL);
 
                 if (PhPluginsEnabled)
                 {
@@ -508,7 +508,7 @@ INT_PTR CALLBACK PhOptionsDialogProc(
             {
                 section = SectionList->Items[i];
 
-            if (PhEqualStringRef2(&section->Name, L"General", TRUE))
+            if (PhEqualStringRef2(&section->Name, L"常规", TRUE))
             {
                 PhpAdvancedPageSave(section->DialogHandle);
             }
@@ -1530,13 +1530,13 @@ VOID PhpRefreshTaskManagerState(
 
     if (PhpIsDefaultTaskManager())
     {
-        PhSetWindowText(GetDlgItem(WindowHandle, IDC_DEFSTATE), L"System Informer is the default Task Manager:");
-        PhSetWindowText(GetDlgItem(WindowHandle, IDC_REPLACETASKMANAGER), L"Restore default...");
+        PhSetWindowText(GetDlgItem(WindowHandle, IDC_DEFSTATE), L"System Informer 是默认任务管理器：");
+        PhSetWindowText(GetDlgItem(WindowHandle, IDC_REPLACETASKMANAGER), L"还原默认(&R)...");
     }
     else
     {
-        PhSetWindowText(GetDlgItem(WindowHandle, IDC_DEFSTATE), L"System Informer is not the default Task Manager:");
-        PhSetWindowText(GetDlgItem(WindowHandle, IDC_REPLACETASKMANAGER), L"Make default...");
+        PhSetWindowText(GetDlgItem(WindowHandle, IDC_DEFSTATE), L"System Informer 不是默认任务管理器：");
+        PhSetWindowText(GetDlgItem(WindowHandle, IDC_REPLACETASKMANAGER), L"设为默认(&M)...");
     }
 }
 
@@ -1593,40 +1593,40 @@ static VOID PhpAdvancedPageLoad(
 
     if (!ReloadOnly)
     {
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_SINGLE_INSTANCE, L"Allow only one instance", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_HIDE_WHENCLOSED, L"Hide when closed", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_HIDE_WHENMINIMIZED, L"Hide when minimized", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_START_ATLOGON, L"Start when I log on", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_START_HIDDEN, L"Start hidden", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_WARNINGS, L"Enable warnings", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_DRIVER, L"Enable kernel-mode driver", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_MONOSPACE, L"Enable monospace fonts", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_PLUGINS, L"Enable plugins", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_UNDECORATE_SYMBOLS, L"Enable undecorated symbols", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_AVX_EXTENSIONS, L"Enable AVX extensions (experimental)", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_COLUMN_HEADER_TOTALS, L"Enable column header totals (experimental)", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_CYCLE_CPU_USAGE, L"Enable cycle-based CPU usage", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_LOW_LATENCY_MODE, L"Enable low-latency mode (experimental)", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_GRAPH_SCALING, L"Enable fixed graph scaling (experimental)", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_MINIINFO_WINDOW, L"Enable tray information window", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_MEMSTRINGS_TREE, L"Enable new memory strings dialog", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_LASTTAB_SUPPORT, L"Remember last selected window", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_THEME_SUPPORT, L"Enable theme support (experimental)", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_START_ASADMIN, L"Enable start as admin (experimental)", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_STREAM_MODE, L"Enable streamer mode (disable window capture) (experimental)", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_SINGLE_INSTANCE, L"仅允许一个实例", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_HIDE_WHENCLOSED, L"关闭时隐藏", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_HIDE_WHENMINIMIZED, L"最小化时隐藏", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_START_ATLOGON, L"登录时启动", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_START_HIDDEN, L"隐藏启动", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_WARNINGS, L"启用警告", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_DRIVER, L"启用内核模式驱动程序", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_MONOSPACE, L"启用等宽字体", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_PLUGINS, L"启用插件", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_UNDECORATE_SYMBOLS, L"启用未修饰符号", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_AVX_EXTENSIONS, L"启用 AVX 扩展(实验性)", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_COLUMN_HEADER_TOTALS, L"启用列标题总计(实验性)", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_CYCLE_CPU_USAGE, L"启用基于周期的 CPU 使用率", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_LOW_LATENCY_MODE, L"启用低延迟模式(实验性)", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_GRAPH_SCALING, L"启用固定图表缩放(实验性)", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_MINIINFO_WINDOW, L"启用托盘信息窗口", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_MEMSTRINGS_TREE, L"启用新的内存字符串对话框", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_LASTTAB_SUPPORT, L"记住上次选择的窗口", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_THEME_SUPPORT, L"启用主题支持(实验性)", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_START_ASADMIN, L"启用以管理员身份启动(实验性)", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_STREAM_MODE, L"启用直播模式(禁用窗口捕获)(实验性)", NULL);
         //PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_LINUX_SUPPORT, L"Enable Windows subsystem for Linux support", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_NETWORK_RESOLVE, L"Resolve network addresses", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_NETWORK_RESOLVE_DOH, L"Resolve DNS over HTTPS (DoH)", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_INSTANT_TOOLTIPS, L"Show tooltips instantly", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_IMAGE_COHERENCY, L"Check images for coherency", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_STAGE2, L"Check images for digital signatures", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_SERVICE_STAGE2, L"Check services for digital signatures", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ICON_SINGLE_CLICK, L"Single-click tray icons", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ICON_TOGGLE_VISIBILITY, L"Icon click toggles visibility", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_PROPAGATE_CPU_USAGE, L"Include usage of collapsed processes", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_NETWORK_RESOLVE, L"解析网络地址", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_NETWORK_RESOLVE_DOH, L"通过 HTTPS 解析 DNS(DoH)", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_INSTANT_TOOLTIPS, L"立即显示工具提示", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_IMAGE_COHERENCY, L"检查映像一致性", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_STAGE2, L"检查映像的数字签名", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ENABLE_SERVICE_STAGE2, L"检查服务的数字签名", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ICON_SINGLE_CLICK, L"单击托盘图标", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_ICON_TOGGLE_VISIBILITY, L"单击图标切换可见性", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_PROPAGATE_CPU_USAGE, L"包含已折叠进程的使用率", NULL);
         if (WindowsVersion >= WINDOWS_10)
-            PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_PROCESS_MONITOR, L"Enable process monitor (experimental)", NULL);
-        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_SHOW_ADVANCED_OPTIONS, L"Show advanced options", NULL);
+            PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_PROCESS_MONITOR, L"启用进程监视器(实验性)", NULL);
+        PhAddListViewItem(listViewHandle, PHP_OPTIONS_INDEX_SHOW_ADVANCED_OPTIONS, L"显示高级选项", NULL);
     }
 
     SetLvItemCheckForSetting(listViewHandle, PHP_OPTIONS_INDEX_SINGLE_INSTANCE, SETTING_ALLOW_ONLY_ONE_INSTANCE);
@@ -1975,7 +1975,7 @@ INT_PTR CALLBACK PhpOptionsGeneralDlgProc(
             PhSetListViewStyle(ListViewHandle, FALSE, TRUE);
             ListView_SetExtendedListViewStyleEx(ListViewHandle, LVS_EX_CHECKBOXES, LVS_EX_CHECKBOXES);
             PhSetControlTheme(ListViewHandle, L"explorer");
-            PhAddListViewColumn(ListViewHandle, 0, 0, 0, LVCFMT_LEFT, 250, L"Name");
+            PhAddListViewColumn(ListViewHandle, 0, 0, 0, LVCFMT_LEFT, 250, L"名称");
             PhSetExtendedListView(ListViewHandle);
 
             for (i = 0; i < RTL_NUMBER_OF(PhSizeUnitNames); i++)
@@ -2446,7 +2446,7 @@ static INT_PTR CALLBACK PhpOptionsAdvancedEditDlgProc(
 
             PhSetApplicationWindowIcon(hwndDlg);
 
-            PhSetWindowText(hwndDlg, L"Setting Editor");
+            PhSetWindowText(hwndDlg, L"设置编辑器");
             PhCenterWindow(hwndDlg, GetParent(hwndDlg));
 
             PhSetWindowContext(hwndDlg, PH_WINDOW_CONTEXT_DEFAULT, editContext);
@@ -2485,7 +2485,7 @@ static INT_PTR CALLBACK PhpOptionsAdvancedEditDlgProc(
             }
             else
             {
-                PhSetDialogItemText(hwndDlg, IDC_DESCRIPTION, L"No schema description available.");
+                PhSetDialogItemText(hwndDlg, IDC_DESCRIPTION, L"没有可用的架构描述。");
             }
 
             if (editContext->SettingSchema)
@@ -3412,11 +3412,11 @@ VOID InitializeOptionsAdvancedTree(
     TreeNew_SetRedraw(Context->TreeNewHandle, FALSE);
     TreeNew_SetCallback(Context->TreeNewHandle, OptionsAdvancedTreeNewCallback, Context);
 
-    PhAddTreeNewColumnEx(Context->TreeNewHandle, PH_OPTIONS_ADVANCED_COLUMN_ITEM_NAME, TRUE, L"Name", 200, PH_ALIGN_LEFT, 0, 0, TRUE);
-    PhAddTreeNewColumnEx(Context->TreeNewHandle, PH_OPTIONS_ADVANCED_COLUMN_ITEM_TYPE, TRUE, L"Type", 100, PH_ALIGN_LEFT, 1, 0, TRUE);
-    PhAddTreeNewColumnEx(Context->TreeNewHandle, PH_OPTIONS_ADVANCED_COLUMN_ITEM_VALUE, TRUE, L"Value", 200, PH_ALIGN_LEFT, 2, 0, TRUE);
-    PhAddTreeNewColumnEx(Context->TreeNewHandle, PH_OPTIONS_ADVANCED_COLUMN_ITEM_DEFAULT, TRUE, L"Default", 200, PH_ALIGN_LEFT, 3, 0, TRUE);
-    PhAddTreeNewColumnEx(Context->TreeNewHandle, PH_OPTIONS_ADVANCED_COLUMN_ITEM_DESCRIPTION, TRUE, L"Description", 300, PH_ALIGN_LEFT, 4, 0, FALSE);
+    PhAddTreeNewColumnEx(Context->TreeNewHandle, PH_OPTIONS_ADVANCED_COLUMN_ITEM_NAME, TRUE, L"名称", 200, PH_ALIGN_LEFT, 0, 0, TRUE);
+    PhAddTreeNewColumnEx(Context->TreeNewHandle, PH_OPTIONS_ADVANCED_COLUMN_ITEM_TYPE, TRUE, L"类型", 100, PH_ALIGN_LEFT, 1, 0, TRUE);
+    PhAddTreeNewColumnEx(Context->TreeNewHandle, PH_OPTIONS_ADVANCED_COLUMN_ITEM_VALUE, TRUE, L"值", 200, PH_ALIGN_LEFT, 2, 0, TRUE);
+    PhAddTreeNewColumnEx(Context->TreeNewHandle, PH_OPTIONS_ADVANCED_COLUMN_ITEM_DEFAULT, TRUE, L"默认", 200, PH_ALIGN_LEFT, 3, 0, TRUE);
+    PhAddTreeNewColumnEx(Context->TreeNewHandle, PH_OPTIONS_ADVANCED_COLUMN_ITEM_DESCRIPTION, TRUE, L"描述", 300, PH_ALIGN_LEFT, 4, 0, FALSE);
 
     OptionsAdvancedLoadSchema(Context);
 
@@ -3645,11 +3645,11 @@ INT_PTR CALLBACK PhpOptionsAdvancedDlgProc(
                         break;
 
                     menu = PhCreateEMenu();
-                    PhInsertEMenuItem(menu, hidemodifiedMenuItem = PhCreateEMenuItem(0, PH_OPTIONS_ADVANCED_TREE_ITEM_MENU_HIDE_MODIFIED, L"Hide modified", NULL, NULL), ULONG_MAX);
-                    PhInsertEMenuItem(menu, hidedefaultMenuItem = PhCreateEMenuItem(0, PH_OPTIONS_ADVANCED_TREE_ITEM_MENU_HIDE_DEFAULT, L"Hide default", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, hidemodifiedMenuItem = PhCreateEMenuItem(0, PH_OPTIONS_ADVANCED_TREE_ITEM_MENU_HIDE_MODIFIED, L"隐藏已修改(&M)", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, hidedefaultMenuItem = PhCreateEMenuItem(0, PH_OPTIONS_ADVANCED_TREE_ITEM_MENU_HIDE_DEFAULT, L"隐藏默认(&D)", NULL, NULL), ULONG_MAX);
                     PhInsertEMenuItem(menu, PhCreateEMenuSeparator(), ULONG_MAX);
-                    PhInsertEMenuItem(menu, highlightmodifiedMenuItem = PhCreateEMenuItem(0, PH_OPTIONS_ADVANCED_TREE_ITEM_MENU_HIGHLIGHT_MODIFIED, L"Highlight modified", NULL, NULL), ULONG_MAX);
-                    PhInsertEMenuItem(menu, highlightdefaultMenuItem = PhCreateEMenuItem(0, PH_OPTIONS_ADVANCED_TREE_ITEM_MENU_HIGHLIGHT_DEFAULT, L"Highlight default", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, highlightmodifiedMenuItem = PhCreateEMenuItem(0, PH_OPTIONS_ADVANCED_TREE_ITEM_MENU_HIGHLIGHT_MODIFIED, L"高亮已修改(&H)", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, highlightdefaultMenuItem = PhCreateEMenuItem(0, PH_OPTIONS_ADVANCED_TREE_ITEM_MENU_HIGHLIGHT_DEFAULT, L"高亮默认(&D)", NULL, NULL), ULONG_MAX);
 
                     if (context->HideModified)
                         hidemodifiedMenuItem->Flags |= PH_EMENU_CHECKED;
@@ -3770,9 +3770,9 @@ INT_PTR CALLBACK PhpOptionsAdvancedDlgProc(
                     PPH_EMENU_ITEM item;
 
                     menu = PhCreateEMenu();
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_RESET, L"&Reset", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_RESET, L"重置(&R)", NULL, NULL), ULONG_MAX);
                     PhInsertEMenuItem(menu, PhCreateEMenuSeparator(), ULONG_MAX);
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_COPY, L"&Copy\bCtrl+C", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_COPY, L"复制(&C)\bCtrl+C", NULL, NULL), ULONG_MAX);
                     PhInsertCopyCellEMenuItem(menu, IDC_COPY, context->TreeNewHandle, contextMenuEvent->Column);
 
                     item = PhShowEMenu(
@@ -3847,67 +3847,67 @@ typedef enum _PH_OPTIONS_HIGHLIGHTING_GROUP
 
 static COLOR_ITEM ColorItems[] =
 {
-    COLOR_ITEM(SETTING_COLOR_OWN_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"Own processes", L"Processes running under the same user account as System Informer."),
-    COLOR_ITEM(SETTING_COLOR_SYSTEM_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"System processes", L"Processes running under the NT AUTHORITY\\SYSTEM user account."),
-    COLOR_ITEM(SETTING_COLOR_SERVICE_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"Service processes", L"Processes which host one or more services."),
-    COLOR_ITEM(SETTING_COLOR_BACKGROUND_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"Background processes", L"Processes with a background scheduling priority."),
-    COLOR_ITEM(SETTING_COLOR_JOB_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"Job processes", L"Processes associated with a job."),
+    COLOR_ITEM(SETTING_COLOR_OWN_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"自身进程", L"与 System Informer 在同一用户账户下运行的进程。"),
+    COLOR_ITEM(SETTING_COLOR_SYSTEM_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"系统进程", L"在 NT AUTHORITY\\SYSTEM 用户账户下运行的进程。"),
+    COLOR_ITEM(SETTING_COLOR_SERVICE_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"服务进程", L"承载一个或多个服务的进程。"),
+    COLOR_ITEM(SETTING_COLOR_BACKGROUND_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"后台进程", L"具有后台调度优先级的进程。"),
+    COLOR_ITEM(SETTING_COLOR_JOB_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"作业进程", L"与作业关联的进程。"),
 #ifdef _WIN64
-    COLOR_ITEM(SETTING_COLOR_WOW64_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"32-bit processes", L"Processes running under WOW64, i.e. 32-bit."),
+    COLOR_ITEM(SETTING_COLOR_WOW64_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"32 位进程", L"在 WOW64 下运行的进程，即 32 位。"),
 #endif
-    COLOR_ITEM(SETTING_COLOR_DEBUGGED_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"Debugged processes", L"Processes that are currently being debugged."),
-    COLOR_ITEM(SETTING_COLOR_ELEVATED_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"Elevated processes", L"Processes with full privileges on a system with UAC enabled."),
-    COLOR_ITEM(SETTING_COLOR_UI_ACCESS_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"UIAccess processes", L"Processes with UIAccess privileges."),
-    COLOR_ITEM(SETTING_COLOR_PICO_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"Pico processes", L"Processes that belong to the Windows subsystem for Linux."),
-    COLOR_ITEM(SETTING_COLOR_IMMERSIVE_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_IMAGES, L"Immersive processes and DLLs", L"Processes and DLLs that belong to a Modern UI app."),
-    COLOR_ITEM(SETTING_COLOR_SUSPENDED, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"Suspended processes and threads", L"Processes and threads that are suspended from execution."),
-    COLOR_ITEM(SETTING_COLOR_PARTIALLY_SUSPENDED, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"Partially suspended processes and threads", L"Processes and threads that are partially suspended from execution."),
-    COLOR_ITEM(SETTING_COLOR_DOT_NET, PH_OPTIONS_HIGHLIGHTING_GROUP_IMAGES, L".NET processes and DLLs", L".NET (i.e. managed) processes and DLLs."),
-    COLOR_ITEM(SETTING_COLOR_PACKED, PH_OPTIONS_HIGHLIGHTING_GROUP_IMAGES, L"Packed processes", L"Executables are sometimes \"packed\" to reduce their size."),
-    COLOR_ITEM(SETTING_COLOR_LOW_IMAGE_COHERENCY, PH_OPTIONS_HIGHLIGHTING_GROUP_IMAGES, L"Low process image coherency", L"The image file backing the process has low coherency when compared to the mapped image."),
-    COLOR_ITEM(SETTING_COLOR_GUI_THREADS, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"GUI threads", L"Threads that have made at least one GUI-related system call."),
-    COLOR_ITEM(SETTING_COLOR_THREAD_SUSPENDED, PH_OPTIONS_HIGHLIGHTING_GROUP_THREADS, L"Suspended", L"Highlight suspended threads in the Threads list."),
-    COLOR_ITEM(SETTING_COLOR_THREAD_DELAY_EXECUTION, PH_OPTIONS_HIGHLIGHTING_GROUP_THREADS, L"Delay execution", L"Highlight delay-execution waits in the Threads list."),
-    COLOR_ITEM(SETTING_COLOR_THREAD_USER_REQUEST, PH_OPTIONS_HIGHLIGHTING_GROUP_THREADS, L"User request", L"Highlight user-request waits in the Threads list."),
-    COLOR_ITEM(SETTING_COLOR_THREAD_ALERT_BY_THREAD_ID, PH_OPTIONS_HIGHLIGHTING_GROUP_THREADS, L"Alert by thread ID", L"Highlight alert-by-thread-ID waits in the Threads list."),
-    COLOR_ITEM(SETTING_COLOR_THREAD_QUEUE, PH_OPTIONS_HIGHLIGHTING_GROUP_THREADS, L"Queue", L"Highlight queue waits in the Threads list."),
-    COLOR_ITEM(SETTING_COLOR_THREAD_EXECUTIVE, PH_OPTIONS_HIGHLIGHTING_GROUP_THREADS, L"Executive", L"Highlight executive waits in the Threads list."),
-    COLOR_ITEM(SETTING_COLOR_THREAD_GUI_THREADS, PH_OPTIONS_HIGHLIGHTING_GROUP_THREADS, L"GUI threads", L"Highlight GUI threads in the Threads list."),
-    COLOR_ITEM(SETTING_COLOR_NETWORK_UNKNOWN_PROCESS, PH_OPTIONS_HIGHLIGHTING_GROUP_NETWORK, L"Unknown process", L"Highlight network items whose owning process is unknown."),
-    COLOR_ITEM(SETTING_COLOR_NETWORK_SUBSYSTEM_PROCESS, PH_OPTIONS_HIGHLIGHTING_GROUP_NETWORK, L"Subsystem process", L"Highlight network items owned by subsystem processes."),
-    COLOR_ITEM(SETTING_COLOR_ENVIRONMENT_PROCESS, PH_OPTIONS_HIGHLIGHTING_GROUP_ENVIRONMENT, L"Process environment", L"Highlight process environment variables in the Environment page."),
-    COLOR_ITEM(SETTING_COLOR_ENVIRONMENT_USER, PH_OPTIONS_HIGHLIGHTING_GROUP_ENVIRONMENT, L"User environment", L"Highlight user environment variables in the Environment page."),
-    COLOR_ITEM(SETTING_COLOR_ENVIRONMENT_SYSTEM, PH_OPTIONS_HIGHLIGHTING_GROUP_ENVIRONMENT, L"System environment", L"Highlight system environment variables in the Environment page."),
-    COLOR_ITEM(SETTING_COLOR_ENVIRONMENT_CMD, PH_OPTIONS_HIGHLIGHTING_GROUP_ENVIRONMENT, L"CMD variables", L"Highlight CMD-style environment variables in the Environment page."),
-    COLOR_ITEM(SETTING_COLOR_WMI_DEFAULT_NAMESPACE, PH_OPTIONS_HIGHLIGHTING_GROUP_WMI, L"Default namespace", L"Highlight providers in the default WMI namespace."),
-    COLOR_ITEM(SETTING_COLOR_TOKEN_ENABLED_DEFAULT, PH_OPTIONS_HIGHLIGHTING_GROUP_TOKEN, L"Enabled by default", L"Token groups or privileges that are enabled by default."),
-    COLOR_ITEM(SETTING_COLOR_TOKEN_ENABLED, PH_OPTIONS_HIGHLIGHTING_GROUP_TOKEN, L"Enabled", L"Token groups or privileges that are enabled."),
-    COLOR_ITEM(SETTING_COLOR_TOKEN_DISABLED_DEFAULT, PH_OPTIONS_HIGHLIGHTING_GROUP_TOKEN, L"Disabled by default", L"Token groups or privileges that are disabled but enabled by default."),
-    COLOR_ITEM(SETTING_COLOR_TOKEN_DISABLED, PH_OPTIONS_HIGHLIGHTING_GROUP_TOKEN, L"Disabled", L"Token groups or privileges that are disabled."),
-    COLOR_ITEM(SETTING_COLOR_TOKEN_REMOVED, PH_OPTIONS_HIGHLIGHTING_GROUP_TOKEN, L"Removed privilege", L"Token privileges that have been removed."),
-    COLOR_ITEM(SETTING_COLOR_TOKEN_DANGEROUS_FLAG, PH_OPTIONS_HIGHLIGHTING_GROUP_TOKEN, L"Dangerous flag", L"Token dangerous flags that are enabled."),
-    COLOR_ITEM(SETTING_COLOR_TOKEN_NORMAL_FLAG, PH_OPTIONS_HIGHLIGHTING_GROUP_TOKEN, L"Normal flag", L"Token dangerous flags that are disabled."),
-    COLOR_ITEM(SETTING_COLOR_MEMORY_PRIVATE_PAGES, PH_OPTIONS_HIGHLIGHTING_GROUP_MEMORY, L"Private pages", L"Highlight private pages in the Memory list."),
-    COLOR_ITEM(SETTING_COLOR_MEMORY_SYSTEM_PAGES, PH_OPTIONS_HIGHLIGHTING_GROUP_MEMORY, L"System pages", L"Highlight system image pages in the Memory list."),
-    COLOR_ITEM(SETTING_COLOR_MEMORY_CFG_PAGES, PH_OPTIONS_HIGHLIGHTING_GROUP_MEMORY, L"CFG pages", L"Highlight CFG bitmap pages in the Memory list."),
-    COLOR_ITEM(SETTING_COLOR_MEMORY_EXECUTE_PAGES, PH_OPTIONS_HIGHLIGHTING_GROUP_MEMORY, L"Execute pages", L"Highlight executable pages in the Memory list."),
-    COLOR_ITEM(SETTING_COLOR_MODULE_UNKNOWN, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L"Untrusted modules", L"Modules that are not digitally signed or otherwise untrusted."),
-    COLOR_ITEM(SETTING_COLOR_MODULE_LOW_IMAGE_COHERENCY, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L"Low image coherency", L"Modules whose backing image file has low coherency."),
-    COLOR_ITEM(SETTING_COLOR_MODULE_DOT_NET, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L".NET modules", L"Modules that contain managed .NET code."),
-    COLOR_ITEM(SETTING_COLOR_MODULE_IMMERSIVE, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L"Immersive modules", L"Modules associated with app-container or immersive applications."),
-    COLOR_ITEM(SETTING_COLOR_MODULE_RELOCATED, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L"Relocated modules", L"Modules that were not loaded at their preferred image base."),
-    COLOR_ITEM(SETTING_COLOR_MODULE_IMAGEKNOWNDLL, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L"Known DLLs", L"Modules loaded from the KnownDLLs image set."),
-    COLOR_ITEM(SETTING_COLOR_MODULE_SYSTEM, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L"Native modules", L"Standard loaded native modules, including trusted Microsoft modules."),
-    COLOR_ITEM(SETTING_COLOR_MODULE_MAPPED, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L"Mapped modules", L"Mapped files, mapped images, and enclave modules."),
-    COLOR_ITEM(SETTING_COLOR_RELOCATED_MODULES, PH_OPTIONS_HIGHLIGHTING_GROUP_IMAGES, L"Relocated DLLs", L"DLLs that were not loaded at their preferred image bases."),
-    COLOR_ITEM(SETTING_COLOR_PROTECTED_HANDLES, PH_OPTIONS_HIGHLIGHTING_GROUP_HANDLES, L"Protected handles", L"Handles that are protected from being closed."),
-    COLOR_ITEM(SETTING_COLOR_PROTECTED_PROCESS, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"Protected processes", L"Processes with built-in protection levels."),
-    COLOR_ITEM(SETTING_COLOR_INHERIT_HANDLES, PH_OPTIONS_HIGHLIGHTING_GROUP_HANDLES, L"Inheritable handles", L"Handles that can be inherited by child processes."),
-    COLOR_ITEM(SETTING_COLOR_HANDLE_FILTERED, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"Filtered processes", L"Processes that are protected by handle object callbacks."),
-    COLOR_ITEM(SETTING_COLOR_UNKNOWN, PH_OPTIONS_HIGHLIGHTING_GROUP_SERVICES, L"Untrusted DLLs and Services", L"Services and DLLs which are not digitally signed."),
-    COLOR_ITEM(SETTING_COLOR_SERVICE_DISABLED, PH_OPTIONS_HIGHLIGHTING_GROUP_SERVICES, L"Disabled Services", L"Services which have been disabled."),
+    COLOR_ITEM(SETTING_COLOR_DEBUGGED_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"被调试进程", L"当前正在被调试的进程。"),
+    COLOR_ITEM(SETTING_COLOR_ELEVATED_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"已提升进程", L"在启用 UAC 的系统上具有完整权限的进程。"),
+    COLOR_ITEM(SETTING_COLOR_UI_ACCESS_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"UIAccess 进程", L"具有 UIAccess 权限的进程。"),
+    COLOR_ITEM(SETTING_COLOR_PICO_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"Pico 进程", L"属于适用于 Linux 的 Windows 子系统的进程。"),
+    COLOR_ITEM(SETTING_COLOR_IMMERSIVE_PROCESSES, PH_OPTIONS_HIGHLIGHTING_GROUP_IMAGES, L"沉浸式进程和 DLL", L"属于新式 UI 应用的进程和 DLL。"),
+    COLOR_ITEM(SETTING_COLOR_SUSPENDED, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"已挂起的进程和线程", L"被挂起而无法执行的进程和线程。"),
+    COLOR_ITEM(SETTING_COLOR_PARTIALLY_SUSPENDED, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"部分挂起的进程和线程", L"被部分挂起的进程和线程。"),
+    COLOR_ITEM(SETTING_COLOR_DOT_NET, PH_OPTIONS_HIGHLIGHTING_GROUP_IMAGES, L".NET 进程和 DLL", L".NET(即托管)进程和 DLL。"),
+    COLOR_ITEM(SETTING_COLOR_PACKED, PH_OPTIONS_HIGHLIGHTING_GROUP_IMAGES, L"加壳进程", L"可执行文件有时会进行""加壳""以减小其大小。"),
+    COLOR_ITEM(SETTING_COLOR_LOW_IMAGE_COHERENCY, PH_OPTIONS_HIGHLIGHTING_GROUP_IMAGES, L"低进程映像一致性", L"进程的映像文件与映射映像相比具有较低的一致性。"),
+    COLOR_ITEM(SETTING_COLOR_GUI_THREADS, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"GUI 线程", L"至少发出过一次 GUI 相关系统调用的线程。"),
+    COLOR_ITEM(SETTING_COLOR_THREAD_SUSPENDED, PH_OPTIONS_HIGHLIGHTING_GROUP_THREADS, L"已挂起", L"在线程列表中高亮已挂起的线程。"),
+    COLOR_ITEM(SETTING_COLOR_THREAD_DELAY_EXECUTION, PH_OPTIONS_HIGHLIGHTING_GROUP_THREADS, L"延迟执行", L"在线程列表中高亮延迟执行等待。"),
+    COLOR_ITEM(SETTING_COLOR_THREAD_USER_REQUEST, PH_OPTIONS_HIGHLIGHTING_GROUP_THREADS, L"用户请求", L"在线程列表中高亮用户请求等待。"),
+    COLOR_ITEM(SETTING_COLOR_THREAD_ALERT_BY_THREAD_ID, PH_OPTIONS_HIGHLIGHTING_GROUP_THREADS, L"按线程 ID 警报", L"在线程列表中高亮按线程 ID 警报的等待。"),
+    COLOR_ITEM(SETTING_COLOR_THREAD_QUEUE, PH_OPTIONS_HIGHLIGHTING_GROUP_THREADS, L"队列", L"在线程列表中高亮队列等待。"),
+    COLOR_ITEM(SETTING_COLOR_THREAD_EXECUTIVE, PH_OPTIONS_HIGHLIGHTING_GROUP_THREADS, L"执行体", L"在线程列表中高亮执行体等待。"),
+    COLOR_ITEM(SETTING_COLOR_THREAD_GUI_THREADS, PH_OPTIONS_HIGHLIGHTING_GROUP_THREADS, L"GUI 线程", L"在线程列表中高亮 GUI 线程。"),
+    COLOR_ITEM(SETTING_COLOR_NETWORK_UNKNOWN_PROCESS, PH_OPTIONS_HIGHLIGHTING_GROUP_NETWORK, L"未知进程", L"高亮所属进程未知的网络项目。"),
+    COLOR_ITEM(SETTING_COLOR_NETWORK_SUBSYSTEM_PROCESS, PH_OPTIONS_HIGHLIGHTING_GROUP_NETWORK, L"子系统进程", L"高亮由子系统进程拥有的网络项目。"),
+    COLOR_ITEM(SETTING_COLOR_ENVIRONMENT_PROCESS, PH_OPTIONS_HIGHLIGHTING_GROUP_ENVIRONMENT, L"进程环境", L"在环境页中高亮进程环境变量。"),
+    COLOR_ITEM(SETTING_COLOR_ENVIRONMENT_USER, PH_OPTIONS_HIGHLIGHTING_GROUP_ENVIRONMENT, L"用户环境", L"在环境页中高亮用户环境变量。"),
+    COLOR_ITEM(SETTING_COLOR_ENVIRONMENT_SYSTEM, PH_OPTIONS_HIGHLIGHTING_GROUP_ENVIRONMENT, L"系统环境", L"在环境页中高亮系统环境变量。"),
+    COLOR_ITEM(SETTING_COLOR_ENVIRONMENT_CMD, PH_OPTIONS_HIGHLIGHTING_GROUP_ENVIRONMENT, L"CMD 变量", L"在环境页中高亮 CMD 风格的环境变量。"),
+    COLOR_ITEM(SETTING_COLOR_WMI_DEFAULT_NAMESPACE, PH_OPTIONS_HIGHLIGHTING_GROUP_WMI, L"默认命名空间", L"高亮默认 WMI 命名空间中的提供程序。"),
+    COLOR_ITEM(SETTING_COLOR_TOKEN_ENABLED_DEFAULT, PH_OPTIONS_HIGHLIGHTING_GROUP_TOKEN, L"默认启用", L"默认启用的令牌组或特权。"),
+    COLOR_ITEM(SETTING_COLOR_TOKEN_ENABLED, PH_OPTIONS_HIGHLIGHTING_GROUP_TOKEN, L"已启用", L"已启用的令牌组或特权。"),
+    COLOR_ITEM(SETTING_COLOR_TOKEN_DISABLED_DEFAULT, PH_OPTIONS_HIGHLIGHTING_GROUP_TOKEN, L"默认禁用", L"已禁用但默认启用的令牌组或特权。"),
+    COLOR_ITEM(SETTING_COLOR_TOKEN_DISABLED, PH_OPTIONS_HIGHLIGHTING_GROUP_TOKEN, L"已禁用", L"已禁用的令牌组或特权。"),
+    COLOR_ITEM(SETTING_COLOR_TOKEN_REMOVED, PH_OPTIONS_HIGHLIGHTING_GROUP_TOKEN, L"已移除的特权", L"已被移除的令牌特权。"),
+    COLOR_ITEM(SETTING_COLOR_TOKEN_DANGEROUS_FLAG, PH_OPTIONS_HIGHLIGHTING_GROUP_TOKEN, L"危险标志", L"已启用的令牌危险标志。"),
+    COLOR_ITEM(SETTING_COLOR_TOKEN_NORMAL_FLAG, PH_OPTIONS_HIGHLIGHTING_GROUP_TOKEN, L"正常标志", L"已禁用的令牌危险标志。"),
+    COLOR_ITEM(SETTING_COLOR_MEMORY_PRIVATE_PAGES, PH_OPTIONS_HIGHLIGHTING_GROUP_MEMORY, L"私有页面", L"在内存列表中高亮私有页面。"),
+    COLOR_ITEM(SETTING_COLOR_MEMORY_SYSTEM_PAGES, PH_OPTIONS_HIGHLIGHTING_GROUP_MEMORY, L"系统页面", L"在内存列表中高亮系统映像页面。"),
+    COLOR_ITEM(SETTING_COLOR_MEMORY_CFG_PAGES, PH_OPTIONS_HIGHLIGHTING_GROUP_MEMORY, L"CFG 页面", L"在内存列表中高亮 CFG 位图页面。"),
+    COLOR_ITEM(SETTING_COLOR_MEMORY_EXECUTE_PAGES, PH_OPTIONS_HIGHLIGHTING_GROUP_MEMORY, L"可执行页面", L"在内存列表中高亮可执行页面。"),
+    COLOR_ITEM(SETTING_COLOR_MODULE_UNKNOWN, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L"不受信任的模块", L"未进行数字签名或以其他方式不受信任的模块。"),
+    COLOR_ITEM(SETTING_COLOR_MODULE_LOW_IMAGE_COHERENCY, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L"低映像一致性", L"映像文件具有低一致性的模块。"),
+    COLOR_ITEM(SETTING_COLOR_MODULE_DOT_NET, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L".NET 模块", L"包含托管 .NET 代码的模块。"),
+    COLOR_ITEM(SETTING_COLOR_MODULE_IMMERSIVE, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L"沉浸式模块", L"与应用容器或沉浸式应用关联的模块。"),
+    COLOR_ITEM(SETTING_COLOR_MODULE_RELOCATED, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L"重定位模块", L"未在其首选映像基址加载的模块。"),
+    COLOR_ITEM(SETTING_COLOR_MODULE_IMAGEKNOWNDLL, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L"已知 DLL", L"从 KnownDLLs 映像集加载的模块。"),
+    COLOR_ITEM(SETTING_COLOR_MODULE_SYSTEM, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L"本机模块", L"标准的已加载本机模块，包括受信任的 Microsoft 模块。"),
+    COLOR_ITEM(SETTING_COLOR_MODULE_MAPPED, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L"映射模块", L"映射文件、映射映像和 enclave 模块。"),
+    COLOR_ITEM(SETTING_COLOR_RELOCATED_MODULES, PH_OPTIONS_HIGHLIGHTING_GROUP_IMAGES, L"重定位 DLL", L"未在其首选映像基址加载的 DLL。"),
+    COLOR_ITEM(SETTING_COLOR_PROTECTED_HANDLES, PH_OPTIONS_HIGHLIGHTING_GROUP_HANDLES, L"受保护句柄", L"受保护而无法被关闭的句柄。"),
+    COLOR_ITEM(SETTING_COLOR_PROTECTED_PROCESS, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"受保护进程", L"具有内置保护级别的进程。"),
+    COLOR_ITEM(SETTING_COLOR_INHERIT_HANDLES, PH_OPTIONS_HIGHLIGHTING_GROUP_HANDLES, L"可继承句柄", L"可被子进程继承的句柄。"),
+    COLOR_ITEM(SETTING_COLOR_HANDLE_FILTERED, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"被筛选进程", L"受句柄对象回调保护的进程。"),
+    COLOR_ITEM(SETTING_COLOR_UNKNOWN, PH_OPTIONS_HIGHLIGHTING_GROUP_SERVICES, L"不受信任的 DLL 和服务", L"未经数字签名的服务和 DLL。"),
+    COLOR_ITEM(SETTING_COLOR_SERVICE_DISABLED, PH_OPTIONS_HIGHLIGHTING_GROUP_SERVICES, L"已禁用的服务", L"已被禁用的服务。"),
     //COLOR_ITEM(SETTING_COLOR_SERVICE_STOP, L"Stopped Services", L"Services that are not running.")
-    COLOR_ITEM(SETTING_COLOR_EFFICIENCY_MODE, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"Power efficiency", L"Processes and threads with power efficiency."),
+    COLOR_ITEM(SETTING_COLOR_EFFICIENCY_MODE, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"节能模式", L"启用了节能模式的进程和线程。"),
 };
 
 COLORREF NTAPI PhpColorItemColorFunction(
@@ -3979,21 +3979,21 @@ INT_PTR CALLBACK PhpOptionsHighlightingDlgProc(
             HighlightingListViewHandle = GetDlgItem(hwndDlg, IDC_LIST);
             PhSetListViewStyle(HighlightingListViewHandle, FALSE, TRUE);
             ListView_SetExtendedListViewStyleEx(HighlightingListViewHandle, LVS_EX_CHECKBOXES, LVS_EX_CHECKBOXES);
-            PhAddListViewColumn(HighlightingListViewHandle, 0, 0, 0, LVCFMT_LEFT, 240, L"Name");
+            PhAddListViewColumn(HighlightingListViewHandle, 0, 0, 0, LVCFMT_LEFT, 240, L"名称");
             PhSetExtendedListView(HighlightingListViewHandle);
             ExtendedListView_SetItemColorFunction(HighlightingListViewHandle, PhpColorItemColorFunction);
             ListView_EnableGroupView(HighlightingListViewHandle, TRUE);
-            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"Processes");
-            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_THREADS, L"Threads");
-            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_NETWORK, L"Network");
-            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_ENVIRONMENT, L"Environment");
+            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_PROCESSES_AND_THREADS, L"进程");
+            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_THREADS, L"线程");
+            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_NETWORK, L"网络");
+            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_ENVIRONMENT, L"环境");
             PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_WMI, L"WMI");
-            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_TOKEN, L"Token");
-            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_MEMORY, L"Memory");
-            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L"Modules");
-            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_IMAGES, L"Images and DLLs");
-            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_HANDLES, L"Handles");
-            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_SERVICES, L"Services");
+            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_TOKEN, L"令牌");
+            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_MEMORY, L"内存");
+            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_MODULES, L"模块");
+            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_IMAGES, L"映像和 DLL");
+            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_HANDLES, L"句柄");
+            PhAddListViewGroup(HighlightingListViewHandle, PH_OPTIONS_HIGHLIGHTING_GROUP_SERVICES, L"服务");
 
             for (ULONG i = 0; i < RTL_NUMBER_OF(ColorItems); i++)
             {
@@ -4158,7 +4158,7 @@ INT_PTR CALLBACK PhpOptionsHighlightingDlgProc(
                 if (ColorItem = PhGetSelectedListViewItemParam(HighlightingListViewHandle))
                 {
                     menu = PhCreateEMenu();
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_RESET, L"&Reset", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_RESET, L"重置(&R)", NULL, NULL), ULONG_MAX);
 
                     item = PhShowEMenu(
                         menu,
@@ -4206,7 +4206,7 @@ INT_PTR CALLBACK PhpOptionsHighlightingDlgProc(
                 point.y = GET_Y_LPARAM(lParam);
 
                 menu = PhCreateEMenu();
-                PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_RESET, L"&Reset", NULL, NULL), ULONG_MAX);
+                PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_RESET, L"重置(&R)", NULL, NULL), ULONG_MAX);
 
                 item = PhShowEMenu(
                     menu,
@@ -4299,11 +4299,11 @@ INT_PTR CALLBACK PhpOptionsTrayIconDlgProc(
             IconListViewHandle = GetDlgItem(hwndDlg, IDC_TRAYICON_ICONLIST);
             PhSetListViewStyle(IconListViewHandle, FALSE, TRUE);
             ListView_SetExtendedListViewStyleEx(IconListViewHandle, LVS_EX_CHECKBOXES, LVS_EX_CHECKBOXES);
-            PhAddListViewColumn(IconListViewHandle, 0, 0, 0, LVCFMT_LEFT, 230, L"Name");
+            PhAddListViewColumn(IconListViewHandle, 0, 0, 0, LVCFMT_LEFT, 230, L"名称");
             PhSetExtendedListView(IconListViewHandle);
             ListView_EnableGroupView(IconListViewHandle, TRUE);
-            PhAddListViewGroup(IconListViewHandle, PH_OPTIONS_TRAY_ICON_GROUP_NOTIFICATIONS, L"Notifications");
-            PhAddListViewGroup(IconListViewHandle, PH_OPTIONS_TRAY_ICON_GROUP_TRAY_ICONS, L"Tray icons");
+            PhAddListViewGroup(IconListViewHandle, PH_OPTIONS_TRAY_ICON_GROUP_NOTIFICATIONS, L"通知");
+            PhAddListViewGroup(IconListViewHandle, PH_OPTIONS_TRAY_ICON_GROUP_TRAY_ICONS, L"托盘图标");
 
             for (ULONG i = 0; i < RTL_NUMBER_OF(TrayIconNotifyItems); i++)
             {
@@ -4502,15 +4502,15 @@ INT_PTR CALLBACK PhpOptionsThemesDlgProc(
 
 static COLOR_ITEM PhpOptionsGraphColorItems[] =
 {
-    COLOR_ITEM(SETTING_COLOR_CPU_KERNEL, 0, L"CPU kernel", L"CPU kernel"),
-    COLOR_ITEM(SETTING_COLOR_CPU_USER, 0, L"CPU user", L"CPU user"),
-    COLOR_ITEM(SETTING_COLOR_IO_READ_OTHER, 0, L"I/O R+O", L"I/O R+O"),
-    COLOR_ITEM(SETTING_COLOR_IO_WRITE, 0, L"I/O W", L"I/O W"),
-    COLOR_ITEM(SETTING_COLOR_PRIVATE, 0, L"Private bytes", L"Private bytes"),
-    COLOR_ITEM(SETTING_COLOR_PHYSICAL, 0, L"Physical memory", L"Physical memory"),
-    COLOR_ITEM(SETTING_COLOR_POWER_USAGE, 0, L"Power usage", L"Power usage"),
-    COLOR_ITEM(SETTING_COLOR_TEMPERATURE, 0, L"Temperature", L"Temperature"),
-    COLOR_ITEM(SETTING_COLOR_FAN_RPM, 0, L"Fan RPM", L"Fan RPM"),
+    COLOR_ITEM(SETTING_COLOR_CPU_KERNEL, 0, L"CPU 内核", L"CPU 内核"),
+    COLOR_ITEM(SETTING_COLOR_CPU_USER, 0, L"CPU 用户", L"CPU 用户"),
+    COLOR_ITEM(SETTING_COLOR_IO_READ_OTHER, 0, L"I/O 读取+其他", L"I/O 读取+其他"),
+    COLOR_ITEM(SETTING_COLOR_IO_WRITE, 0, L"I/O 写入", L"I/O 写入"),
+    COLOR_ITEM(SETTING_COLOR_PRIVATE, 0, L"私有字节", L"私有字节"),
+    COLOR_ITEM(SETTING_COLOR_PHYSICAL, 0, L"物理内存", L"物理内存"),
+    COLOR_ITEM(SETTING_COLOR_POWER_USAGE, 0, L"电源使用率", L"电源使用率"),
+    COLOR_ITEM(SETTING_COLOR_TEMPERATURE, 0, L"温度", L"温度"),
+    COLOR_ITEM(SETTING_COLOR_FAN_RPM, 0, L"风扇转速", L"风扇转速"),
 };
 static HWND PhpGraphListViewHandle = NULL;
 
@@ -4535,7 +4535,7 @@ INT_PTR CALLBACK PhpOptionsGraphsDlgProc(
             // Highlighting
             PhpGraphListViewHandle = GetDlgItem(hwndDlg, IDC_LIST);
             PhSetListViewStyle(PhpGraphListViewHandle, FALSE, TRUE);
-            PhAddListViewColumn(PhpGraphListViewHandle, 0, 0, 0, LVCFMT_LEFT, 240, L"Name");
+            PhAddListViewColumn(PhpGraphListViewHandle, 0, 0, 0, LVCFMT_LEFT, 240, L"名称");
             PhSetExtendedListView(PhpGraphListViewHandle);
             ExtendedListView_SetItemColorFunction(PhpGraphListViewHandle, PhpColorItemColorFunction);
 
@@ -4679,7 +4679,7 @@ INT_PTR CALLBACK PhpOptionsGraphsDlgProc(
                 if (ColorItem = PhGetSelectedListViewItemParam(PhpGraphListViewHandle))
                 {
                     menu = PhCreateEMenu();
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_RESET, L"&Reset", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_RESET, L"重置(&R)", NULL, NULL), ULONG_MAX);
 
                     item = PhShowEMenu(
                         menu,

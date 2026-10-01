@@ -201,7 +201,7 @@ INT_PTR CALLBACK PvpPeExtendedAttributesDlgProc(
                     menu = PhCreateEMenu();
                     PhInsertEMenuItem(menu, PhCreateEMenuItem(0, 1, L"Delete", NULL, NULL), ULONG_MAX);
                     PhInsertEMenuItem(menu, PhCreateEMenuSeparator(), ULONG_MAX);
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, USHRT_MAX, L"&Copy", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, USHRT_MAX, L"复制(&C)", NULL, NULL), ULONG_MAX);
                     PvInsertCopyListViewEMenuItem(menu, USHRT_MAX, context->ListViewHandle);
 
                     item = PhShowEMenu(
@@ -257,7 +257,7 @@ INT_PTR CALLBACK PvpPeExtendedAttributesDlgProc(
                                     }
                                     else
                                     {
-                                        PhShowStatus(hwndDlg, L"Unable to remove attribute.", status, 0);
+                                        PhShowStatus(hwndDlg, L"无法移除属性。", status, 0);
                                     }
 
                                     PhClearReference(&nameUtf);

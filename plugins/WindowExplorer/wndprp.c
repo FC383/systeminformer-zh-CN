@@ -359,7 +359,7 @@ BOOLEAN WeShowWindowProperties(
 
     if (!IsWindow(WindowHandle))
     {
-        PhShowStatus(ParentWindowHandle, L"Unable to display window properties.", STATUS_GRAPHICS_PRESENT_INVALID_WINDOW, 0);
+        PhShowStatus(ParentWindowHandle, L"无法显示窗口属性。", STATUS_GRAPHICS_PRESENT_INVALID_WINDOW, 0);
         return FALSE;
     }
 
@@ -367,7 +367,7 @@ BOOLEAN WeShowWindowProperties(
 
     if (!NT_SUCCESS(status))
     {
-        PhShowStatus(ParentWindowHandle, L"Unable to display window properties.", status, 0);
+        PhShowStatus(ParentWindowHandle, L"无法显示窗口属性。", status, 0);
         return FALSE;
     }
 
@@ -377,7 +377,7 @@ BOOLEAN WeShowWindowProperties(
     //    ClientId->UniqueProcess != clientId.UniqueProcess
     //    )
     //{
-    //    PhShowStatus(ParentWindowHandle, L"Unable to display window properties.", STATUS_GRAPHICS_PRESENT_INVALID_WINDOW, 0);
+    //    PhShowStatus(ParentWindowHandle, L"无法显示窗口属性。", STATUS_GRAPHICS_PRESENT_INVALID_WINDOW, 0);
     //    return FALSE;
     //}
 
@@ -436,7 +436,7 @@ NTSTATUS WepPropertiesThreadStart(
         // Property store
         newPage = PvCreatePropPageContext(
             L"PropertyStore",
-            L"Property Store",
+            L"属性存储",
             MAKEINTRESOURCE(IDD_WNDPROPSTORAGE),
             WepWindowPropStoreDlgProc,
             WepCreateWindowPropertiesPageContext(sizeof(WINDOW_PROPERTIES_PROPSTORE_PAGE_CONTEXT), context));
@@ -445,7 +445,7 @@ NTSTATUS WepPropertiesThreadStart(
         // DWM attributes
         newPage = PvCreatePropPageContext(
             L"DwmAttributes",
-            L"DWM Attributes",
+            L"DWM 属性",
             MAKEINTRESOURCE(IDD_WNDPROPSTORAGE),
             WepWindowAttributeDlgProc,
             WepCreateWindowPropertiesPageContext(sizeof(WINDOW_PROPERTIES_DWMATTRIBUTES_PAGE_CONTEXT), context));
@@ -454,7 +454,7 @@ NTSTATUS WepPropertiesThreadStart(
         // UI Automation properties
         newPage = PvCreatePropPageContext(
             L"UIAutomation",
-            L"UI Automation",
+            L"UI 自动化",
             MAKEINTRESOURCE(IDD_WNDPROPSTORAGE),
             WepWindowUiaDlgProc,
             WepCreateWindowPropertiesPageContext(sizeof(WINDOW_PROPERTIES_UIA_PAGE_CONTEXT), context));
@@ -1528,7 +1528,7 @@ VOID WepRefreshDpiContext(
                 ListViewHandle,
                 WINDOW_PROPERTIES_INDEX_DPICONTEXT,
                 1,
-                L"System aware"
+                L"系统感知"
                 );
         }
         else if (AreDpiAwarenessContextsEqual_I(dpiContext,DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE))
@@ -1537,7 +1537,7 @@ VOID WepRefreshDpiContext(
                 ListViewHandle,
                 WINDOW_PROPERTIES_INDEX_DPICONTEXT,
                 1,
-                L"Per-monitor aware"
+                L"按监视器感知"
                 );
         }
         else if (AreDpiAwarenessContextsEqual_I(dpiContext, DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2))
@@ -1546,7 +1546,7 @@ VOID WepRefreshDpiContext(
                 ListViewHandle,
                 WINDOW_PROPERTIES_INDEX_DPICONTEXT,
                 1,
-                L"Per-monitor V2"
+                L"按监视器 V2"
                 );
         }
         else if (AreDpiAwarenessContextsEqual_I(dpiContext, DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED))
@@ -1555,7 +1555,7 @@ VOID WepRefreshDpiContext(
                 ListViewHandle,
                 WINDOW_PROPERTIES_INDEX_DPICONTEXT,
                 1,
-                L"Unaware (GDI scaled)"
+                L"无感知(GDI 缩放)"
                 );
         }
         else
@@ -1579,46 +1579,46 @@ VOID WepGeneralAddListViewItemGroups(
     PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_APPID, L"AppId", NULL);
     PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_THREAD, L"Thread", NULL);
     PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_RECT, L"Rectangle", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_NORMALRECT, L"Normal rectangle", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_CLIENTRECT, L"Client rectangle", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_INSTANCE, L"Instance handle", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_MENUHANDLE, L"Menu handle", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_USERDATA, L"User data", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_NORMALRECT, L"普通矩形", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_CLIENTRECT, L"客户端矩形", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_INSTANCE, L"实例句柄", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_MENUHANDLE, L"菜单句柄", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_USERDATA, L"用户数据", NULL);
     PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_UNICODE, L"Unicode", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_WNDTEXT, L"Window text", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_WNDHANDLE, L"Window handle", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_WNDUNIQID, L"Window unique id", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_WNDMSGONLY, L"Window message-only", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_WNDEXTRA, L"Window extra bytes", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_WNDPROC, L"Window procedure", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_DLGPROC, L"Dialog procedure", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_DLGCTLID, L"Dialog control ID", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_WNDTEXT, L"窗口文本", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_WNDHANDLE, L"窗口句柄", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_WNDUNIQID, L"窗口唯一 ID", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_WNDMSGONLY, L"窗口仅消息", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_WNDEXTRA, L"窗口额外字节", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_WNDPROC, L"窗口过程", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_DLGPROC, L"对话框过程", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_DLGCTLID, L"对话框控件 ID", NULL);
     PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_FONTNAME, L"Font", NULL);
     PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_STYLES, L"Styles", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_EXSTYLES, L"Extended styles", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_AUTOMATION, L"Automation server", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_DPICONTEXT, L"DPI Context", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_EXSTYLES, L"扩展样式", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_AUTOMATION, L"自动化服务器", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_DPICONTEXT, L"DPI 上下文", NULL);
     PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_MONITOR, L"Monitor", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_TOPLEVEL, L"Top level", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_TOPLEVEL, L"顶层", NULL);
     PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_CLOAKED, L"Cloaked", NULL);
     PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_IAMID, L"Band", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_IMEWND, L"IME Window", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_D3DKMT_EXCLUSIVE, L"Exclusive ownership", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_IMEWND, L"IME 窗口", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_GENERAL, WINDOW_PROPERTIES_INDEX_D3DKMT_EXCLUSIVE, L"独占所有权", NULL);
 
     PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_NAME, L"Name", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_BASENAME, L"Base name", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_BASENAME, L"基本名称", NULL);
     PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_ATOM, L"Atom", NULL);
     PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_STYLES, L"Styles", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_INSTANCE, L"Instance handle", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_LARGEICON, L"Large icon handle", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_SMALLICON, L"Small icon handle", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_CURSOR, L"Cursor handle", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_BACKBRUSH, L"Background brush", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_MENUNAME, L"Menu name", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_WNDEXTRA, L"Window extra bytes", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_WNDPROC, L"Window procedure", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_DROPSHADOW, L"Drop shadow", NULL);
-    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_SAVEBITS, L"Save bits", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_INSTANCE, L"实例句柄", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_LARGEICON, L"大图标句柄", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_SMALLICON, L"小图标句柄", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_CURSOR, L"光标句柄", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_BACKBRUSH, L"背景画刷", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_MENUNAME, L"菜单名称", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_WNDEXTRA, L"窗口额外字节", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_WNDPROC, L"窗口过程", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_DROPSHADOW, L"投影", NULL);
+    PhAddListViewGroupItem(ListViewHandle, WINDOW_PROPERTIES_CATEGORY_CLASS, WINDOW_PROPERTIES_INDEX_CLASS_SAVEBITS, L"保存位图", NULL);
 }
 
 VOID WepWindowRefreshGeneralPageHeader(
@@ -1753,8 +1753,8 @@ INT_PTR CALLBACK WepWindowGeneralDlgProc(
             PhSetListViewStyle(context->ListViewHandle, FALSE, TRUE);
             PhSetControlTheme(context->ListViewHandle, L"explorer");
             SetWindowFont(context->ListViewHandle, context->Parent->TreeWindowFont, TRUE);
-            PhAddListViewColumn(context->ListViewHandle, 0, 0, 0, LVCFMT_LEFT, 180, L"Name");
-            PhAddListViewColumn(context->ListViewHandle, 1, 1, 1, LVCFMT_LEFT, 200, L"Value");
+            PhAddListViewColumn(context->ListViewHandle, 0, 0, 0, LVCFMT_LEFT, 180, L"名称");
+            PhAddListViewColumn(context->ListViewHandle, 1, 1, 1, LVCFMT_LEFT, 200, L"值");
             PhSetExtendedListView(context->ListViewHandle);
             PhLoadListViewColumnsFromSetting(SETTING_NAME_WINDOWS_PROPERTY_COLUMNS, context->ListViewHandle);
 
@@ -1829,7 +1829,7 @@ INT_PTR CALLBACK WepWindowGeneralDlgProc(
                 if (PhGetSelectedListViewItemParams(context->ListViewHandle, &listviewItems, &numberOfItems))
                 {
                     menu = PhCreateEMenu();
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"&Copy", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"复制(&C)", NULL, NULL), ULONG_MAX);
                     PhInsertCopyListViewEMenuItem(menu, PHAPP_IDC_COPY, context->ListViewHandle);
 
                     item = PhShowEMenu(
@@ -1969,7 +1969,7 @@ static INT_PTR CALLBACK WepWindowPropEditDlgProc(
 
             PhSetApplicationWindowIcon(WindowHandle);
 
-            PhSetWindowText(WindowHandle, L"Property Editor");
+            PhSetWindowText(WindowHandle, L"属性编辑器");
             PhCenterWindow(WindowHandle, GetParent(WindowHandle));
 
             PhSetWindowContext(WindowHandle, PH_WINDOW_CONTEXT_DEFAULT, context);
@@ -2032,7 +2032,7 @@ static INT_PTR CALLBACK WepWindowPropEditDlgProc(
 
                     if (!context->WindowPropCreate && PhIsNullOrEmptyString(windowPropName))
                     {
-                        PhShowError2(WindowHandle, L"Unable to add window property.", L"%s", L"The property name is empty.");
+                        PhShowError2(WindowHandle, L"无法添加窗口属性。", L"%s", L"属性名称为空。");
                         break;
                     }
 
@@ -2040,7 +2040,7 @@ static INT_PTR CALLBACK WepWindowPropEditDlgProc(
                     {
                         if (!SetProp(context->TargetWindowHandle, PhGetString(windowPropName), (HANDLE)value))
                         {
-                            PhShowStatus(WindowHandle, L"Unable to create the window property.", 0, GetLastError());
+                            PhShowStatus(WindowHandle, L"无法创建窗口属性。", 0, GetLastError());
                             break;
                         }
                     }
@@ -2048,7 +2048,7 @@ static INT_PTR CALLBACK WepWindowPropEditDlgProc(
                     {
                         if (!SetProp(context->TargetWindowHandle, PhGetString(context->WindowPropString), (HANDLE)value))
                         {
-                            PhShowStatus(WindowHandle, L"Unable to update the window property.", 0, GetLastError());
+                            PhShowStatus(WindowHandle, L"无法更新窗口属性。", 0, GetLastError());
                             break;
                         }
                     }
@@ -2184,9 +2184,9 @@ INT_PTR CALLBACK WepWindowPropListDlgProc(
             PhSetControlTheme(context->ListViewHandle, L"explorer");
             SetWindowFont(context->ListViewHandle, context->Parent->TreeWindowFont, TRUE);
             PhAddListViewColumn(context->ListViewHandle, 0, 0, 0, LVCFMT_LEFT, 80, L"#");
-            PhAddListViewColumn(context->ListViewHandle, 1, 1, 1, LVCFMT_LEFT, 160, L"Name");
-            PhAddListViewColumn(context->ListViewHandle, 2, 2, 2, LVCFMT_LEFT, 100, L"Value");
-            PhAddListViewColumn(context->ListViewHandle, 3, 3, 3, LVCFMT_LEFT, 100, L"Alias");
+            PhAddListViewColumn(context->ListViewHandle, 1, 1, 1, LVCFMT_LEFT, 160, L"名称");
+            PhAddListViewColumn(context->ListViewHandle, 2, 2, 2, LVCFMT_LEFT, 100, L"值");
+            PhAddListViewColumn(context->ListViewHandle, 3, 3, 3, LVCFMT_LEFT, 100, L"别名");
             PhSetExtendedListView(context->ListViewHandle);
             PhLoadListViewColumnsFromSetting(SETTING_NAME_WINDOWS_PROPLIST_COLUMNS, context->ListViewHandle);
 
@@ -2251,7 +2251,7 @@ INT_PTR CALLBACK WepWindowPropListDlgProc(
                     PhInsertEMenuItem(menu, PhCreateEMenuSeparator(), ULONG_MAX);
                     PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_DELETE, L"Delete", NULL, NULL), ULONG_MAX);
                     PhInsertEMenuItem(menu, PhCreateEMenuSeparator(), ULONG_MAX);
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"&Copy", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"复制(&C)", NULL, NULL), ULONG_MAX);
                     PhInsertCopyListViewEMenuItem(menu, PHAPP_IDC_COPY, context->ListViewHandle);
                 }
 
@@ -2317,8 +2317,8 @@ INT_PTR CALLBACK WepWindowPropListDlgProc(
                                 if (PhGetIntegerSetting(SETTING_ENABLE_WARNINGS) && !PhShowConfirmMessage(
                                     WindowHandle,
                                     L"remove",
-                                    L"the window property",
-                                    L"The window property will be permanently deleted.",
+                                    L"窗口属性",
+                                    L"窗口属性将被永久删除。",
                                     FALSE
                                     ))
                                 {
@@ -2329,7 +2329,7 @@ INT_PTR CALLBACK WepWindowPropListDlgProc(
 
                                 status = PhGetLastWin32ErrorAsNtStatus();
                                 if (status != STATUS_CANCELLED)
-                                    PhShowStatus(WindowHandle, L"Unable to remove the window property.", status, 0);
+                                    PhShowStatus(WindowHandle, L"无法移除窗口属性。", status, 0);
 
                                 //WepRefreshWindowProps(context);
                                 PvRefreshChildWindows(WindowHandle);
@@ -2465,8 +2465,8 @@ INT_PTR CALLBACK WepWindowPropStoreDlgProc(
             PhSetControlTheme(context->ListViewHandle, L"explorer");
             SetWindowFont(context->ListViewHandle, context->Parent->TreeWindowFont, TRUE);
             PhAddListViewColumn(context->ListViewHandle, 0, 0, 0, LVCFMT_LEFT, 50, L"#");
-            PhAddListViewColumn(context->ListViewHandle, 1, 1, 1, LVCFMT_LEFT, 200, L"Name");
-            PhAddListViewColumn(context->ListViewHandle, 2, 2, 2, LVCFMT_LEFT, 150, L"Value");
+            PhAddListViewColumn(context->ListViewHandle, 1, 1, 1, LVCFMT_LEFT, 200, L"名称");
+            PhAddListViewColumn(context->ListViewHandle, 2, 2, 2, LVCFMT_LEFT, 150, L"值");
             PhSetExtendedListView(context->ListViewHandle);
             PhLoadListViewColumnsFromSetting(SETTING_NAME_WINDOWS_PROPSTORAGE_COLUMNS, context->ListViewHandle);
 
@@ -2522,7 +2522,7 @@ INT_PTR CALLBACK WepWindowPropStoreDlgProc(
                 if (PhGetSelectedListViewItemParams(context->ListViewHandle, &listviewItems, &numberOfItems))
                 {
                     menu = PhCreateEMenu();
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"&Copy", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"复制(&C)", NULL, NULL), ULONG_MAX);
                     PhInsertCopyListViewEMenuItem(menu, PHAPP_IDC_COPY, context->ListViewHandle);
 
                     item = PhShowEMenu(
@@ -2711,8 +2711,8 @@ INT_PTR CALLBACK WepWindowAttributeDlgProc(
             PhSetControlTheme(context->ListViewHandle, L"explorer");
             SetWindowFont(context->ListViewHandle, context->Parent->TreeWindowFont, TRUE);
             PhAddListViewColumn(context->ListViewHandle, 0, 0, 0, LVCFMT_LEFT, 50, L"#");
-            PhAddListViewColumn(context->ListViewHandle, 1, 1, 1, LVCFMT_LEFT, 200, L"Name");
-            PhAddListViewColumn(context->ListViewHandle, 2, 2, 2, LVCFMT_LEFT, 150, L"Value");
+            PhAddListViewColumn(context->ListViewHandle, 1, 1, 1, LVCFMT_LEFT, 200, L"名称");
+            PhAddListViewColumn(context->ListViewHandle, 2, 2, 2, LVCFMT_LEFT, 150, L"值");
             PhSetExtendedListView(context->ListViewHandle);
             PhLoadListViewColumnsFromSetting(SETTING_NAME_WINDOWS_DWMATTRIBUTES_COLUMNS, context->ListViewHandle);
 
@@ -2768,7 +2768,7 @@ INT_PTR CALLBACK WepWindowAttributeDlgProc(
                 if (PhGetSelectedListViewItemParams(context->ListViewHandle, &listviewItems, &numberOfItems))
                 {
                     menu = PhCreateEMenu();
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"&Copy", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"复制(&C)", NULL, NULL), ULONG_MAX);
                     PhInsertCopyListViewEMenuItem(menu, PHAPP_IDC_COPY, context->ListViewHandle);
 
                     item = PhShowEMenu(
@@ -2827,35 +2827,35 @@ typedef struct _WND_UIA_PROPERTY
 
 static WND_UIA_PROPERTY WndUiaProperties[] = {
     // Identification
-    { &UIA_RuntimeIdPropertyId, L"Runtime ID", WND_UIA_GROUP_IDENTIFICATION },
+    { &UIA_RuntimeIdPropertyId, L"运行时 ID", WND_UIA_GROUP_IDENTIFICATION },
     { &UIA_NamePropertyId, L"Name", WND_UIA_GROUP_IDENTIFICATION },
-    { &UIA_AutomationIdPropertyId, L"Automation ID", WND_UIA_GROUP_IDENTIFICATION },
+    { &UIA_AutomationIdPropertyId, L"自动化 ID", WND_UIA_GROUP_IDENTIFICATION },
     { &UIA_ClassNamePropertyId, L"Class Name", WND_UIA_GROUP_IDENTIFICATION },
-    { &UIA_ControlTypePropertyId, L"Control Type", WND_UIA_GROUP_IDENTIFICATION },
-    { &UIA_LocalizedControlTypePropertyId, L"Localized Control Type", WND_UIA_GROUP_IDENTIFICATION },
-    { &UIA_FrameworkIdPropertyId, L"Framework ID", WND_UIA_GROUP_IDENTIFICATION },
+    { &UIA_ControlTypePropertyId, L"控件类型", WND_UIA_GROUP_IDENTIFICATION },
+    { &UIA_LocalizedControlTypePropertyId, L"本地化控件类型", WND_UIA_GROUP_IDENTIFICATION },
+    { &UIA_FrameworkIdPropertyId, L"框架 ID", WND_UIA_GROUP_IDENTIFICATION },
     { &UIA_ProcessIdPropertyId, L"Process ID", WND_UIA_GROUP_IDENTIFICATION },
-    { &UIA_NativeWindowHandlePropertyId, L"Native Window Handle", WND_UIA_GROUP_IDENTIFICATION },
+    { &UIA_NativeWindowHandlePropertyId, L"本机窗口句柄", WND_UIA_GROUP_IDENTIFICATION },
 
     // State
-    { &UIA_IsEnabledPropertyId, L"Is Enabled", WND_UIA_GROUP_STATE },
-    { &UIA_IsKeyboardFocusablePropertyId, L"Is Keyboard Focusable", WND_UIA_GROUP_STATE },
-    { &UIA_HasKeyboardFocusPropertyId, L"Has Keyboard Focus", WND_UIA_GROUP_STATE },
-    { &UIA_IsOffscreenPropertyId, L"Is Offscreen", WND_UIA_GROUP_STATE },
-    { &UIA_IsPasswordPropertyId, L"Is Password", WND_UIA_GROUP_STATE },
-    { &UIA_IsRequiredForFormPropertyId, L"Is Required For Form", WND_UIA_GROUP_STATE },
+    { &UIA_IsEnabledPropertyId, L"已启用", WND_UIA_GROUP_STATE },
+    { &UIA_IsKeyboardFocusablePropertyId, L"可键盘聚焦", WND_UIA_GROUP_STATE },
+    { &UIA_HasKeyboardFocusPropertyId, L"具有键盘焦点", WND_UIA_GROUP_STATE },
+    { &UIA_IsOffscreenPropertyId, L"屏幕外", WND_UIA_GROUP_STATE },
+    { &UIA_IsPasswordPropertyId, L"是密码", WND_UIA_GROUP_STATE },
+    { &UIA_IsRequiredForFormPropertyId, L"表单必需", WND_UIA_GROUP_STATE },
     { &UIA_OrientationPropertyId, L"Orientation", WND_UIA_GROUP_STATE },
-    { &UIA_ItemStatusPropertyId, L"Item Status", WND_UIA_GROUP_STATE },
+    { &UIA_ItemStatusPropertyId, L"项目状态", WND_UIA_GROUP_STATE },
 
     // Accessibility
-    { &UIA_AcceleratorKeyPropertyId, L"Accelerator Key", WND_UIA_GROUP_ACCESSIBILITY },
-    { &UIA_AccessKeyPropertyId, L"Access Key", WND_UIA_GROUP_ACCESSIBILITY },
-    { &UIA_HelpTextPropertyId, L"Help Text", WND_UIA_GROUP_ACCESSIBILITY },
-    { &UIA_LabeledByPropertyId, L"Labeled By", WND_UIA_GROUP_ACCESSIBILITY },
-    { &UIA_BoundingRectanglePropertyId, L"Bounding Rectangle", WND_UIA_GROUP_ACCESSIBILITY },
-    { &UIA_ClickablePointPropertyId, L"Clickable Point", WND_UIA_GROUP_ACCESSIBILITY },
+    { &UIA_AcceleratorKeyPropertyId, L"加速键", WND_UIA_GROUP_ACCESSIBILITY },
+    { &UIA_AccessKeyPropertyId, L"访问键", WND_UIA_GROUP_ACCESSIBILITY },
+    { &UIA_HelpTextPropertyId, L"帮助文本", WND_UIA_GROUP_ACCESSIBILITY },
+    { &UIA_LabeledByPropertyId, L"由…标记", WND_UIA_GROUP_ACCESSIBILITY },
+    { &UIA_BoundingRectanglePropertyId, L"边界矩形", WND_UIA_GROUP_ACCESSIBILITY },
+    { &UIA_ClickablePointPropertyId, L"可单击点", WND_UIA_GROUP_ACCESSIBILITY },
     { &UIA_ItemTypePropertyId, L"Item Type", WND_UIA_GROUP_ACCESSIBILITY },
-    { &UIA_FullDescriptionPropertyId, L"Full Description", WND_UIA_GROUP_ACCESSIBILITY },
+    { &UIA_FullDescriptionPropertyId, L"完整描述", WND_UIA_GROUP_ACCESSIBILITY },
 
     // Patterns
     { &UIA_IsDockPatternAvailablePropertyId, L"Is Dock Pattern Available", WND_UIA_GROUP_PATTERNS },
@@ -3135,7 +3135,7 @@ VOID WepRefreshWindowUiaProperties(
                 }
                 else
                 {
-                    PhSetListViewSubItem(Context->ListViewHandle, i, 1, L"Failed to query");
+                    PhSetListViewSubItem(Context->ListViewHandle, i, 1, L"查询失败");
                 }
             }
             IUIAutomationElement_Release(element);
@@ -3144,7 +3144,7 @@ VOID WepRefreshWindowUiaProperties(
         {
             for (ULONG i = 0; i < RTL_NUMBER_OF(WndUiaProperties); i++)
             {
-                PhSetListViewSubItem(Context->ListViewHandle, i, 1, L"Error: No automation element");
+                PhSetListViewSubItem(Context->ListViewHandle, i, 1, L"错误: 无自动化元素");
             }
         }
         IUIAutomation_Release(uia);
@@ -3153,7 +3153,7 @@ VOID WepRefreshWindowUiaProperties(
     {
         for (ULONG i = 0; i < RTL_NUMBER_OF(WndUiaProperties); i++)
         {
-            PhSetListViewSubItem(Context->ListViewHandle, i, 1, L"Error: UIA COM creation failed");
+            PhSetListViewSubItem(Context->ListViewHandle, i, 1, L"错误: UIA COM 创建失败");
         }
     }
 
@@ -3187,8 +3187,8 @@ INT_PTR CALLBACK WepWindowUiaDlgProc(
             PhSetListViewStyle(context->ListViewHandle, FALSE, TRUE);
             PhSetControlTheme(context->ListViewHandle, L"explorer");
             SetWindowFont(context->ListViewHandle, context->Parent->TreeWindowFont, TRUE);
-            PhAddListViewColumn(context->ListViewHandle, 0, 0, 0, LVCFMT_LEFT, 180, L"Name");
-            PhAddListViewColumn(context->ListViewHandle, 1, 1, 1, LVCFMT_LEFT, 200, L"Value");
+            PhAddListViewColumn(context->ListViewHandle, 0, 0, 0, LVCFMT_LEFT, 180, L"名称");
+            PhAddListViewColumn(context->ListViewHandle, 1, 1, 1, LVCFMT_LEFT, 200, L"值");
             PhSetExtendedListView(context->ListViewHandle);
             PhLoadListViewColumnsFromSetting(SETTING_NAME_WINDOWS_UIA_COLUMNS, context->ListViewHandle);
 
@@ -3245,7 +3245,7 @@ INT_PTR CALLBACK WepWindowUiaDlgProc(
                 if (PhGetSelectedListViewItemParams(context->ListViewHandle, &listviewItems, &numberOfItems))
                 {
                     menu = PhCreateEMenu();
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"&Copy", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"复制(&C)", NULL, NULL), ULONG_MAX);
                     PhInsertCopyListViewEMenuItem(menu, PHAPP_IDC_COPY, context->ListViewHandle);
 
                     item = PhShowEMenu(
@@ -3534,11 +3534,11 @@ INT_PTR CALLBACK WepWindowChildrenDlgProc(
             PhSetListViewStyle(context->ListViewHandle, FALSE, TRUE);
             PhSetControlTheme(context->ListViewHandle, L"explorer");
             SetWindowFont(context->ListViewHandle, context->Parent->TreeWindowFont, TRUE);
-            PhAddListViewColumn(context->ListViewHandle, 0, 0, 0, LVCFMT_LEFT, 80, L"Handle");
-            PhAddListViewColumn(context->ListViewHandle, 1, 1, 1, LVCFMT_LEFT, 150, L"Class");
-            PhAddListViewColumn(context->ListViewHandle, 2, 2, 2, LVCFMT_LEFT, 250, L"Text");
-            PhAddListViewColumn(context->ListViewHandle, 3, 3, 3, LVCFMT_RIGHT, 80, L"Process ID");
-            PhAddListViewColumn(context->ListViewHandle, 4, 4, 4, LVCFMT_RIGHT, 80, L"Thread ID");
+            PhAddListViewColumn(context->ListViewHandle, 0, 0, 0, LVCFMT_LEFT, 80, L"句柄");
+            PhAddListViewColumn(context->ListViewHandle, 1, 1, 1, LVCFMT_LEFT, 150, L"类");
+            PhAddListViewColumn(context->ListViewHandle, 2, 2, 2, LVCFMT_LEFT, 250, L"文本");
+            PhAddListViewColumn(context->ListViewHandle, 3, 3, 3, LVCFMT_RIGHT, 80, L"进程 ID");
+            PhAddListViewColumn(context->ListViewHandle, 4, 4, 4, LVCFMT_RIGHT, 80, L"线程 ID");
             PhSetExtendedListView(context->ListViewHandle);
             PhLoadListViewColumnsFromSetting(SETTING_NAME_WINDOWS_CHILDREN_COLUMNS, context->ListViewHandle);
 
@@ -3629,8 +3629,8 @@ INT_PTR CALLBACK WepWindowChildrenDlgProc(
                 if (PhGetSelectedListViewItemParams(context->ListViewHandle, &listviewItems, &numberOfItems))
                 {
                     menu = PhCreateEMenu();
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, 1, L"&Properties", NULL, NULL), ULONG_MAX);
-                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"&Copy", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, 1, L"属性(&P)", NULL, NULL), ULONG_MAX);
+                    PhInsertEMenuItem(menu, PhCreateEMenuItem(0, PHAPP_IDC_COPY, L"复制(&C)", NULL, NULL), ULONG_MAX);
                     PhInsertCopyListViewEMenuItem(menu, PHAPP_IDC_COPY, context->ListViewHandle);
 
                     item = PhShowEMenu(

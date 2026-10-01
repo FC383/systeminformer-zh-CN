@@ -12,8 +12,8 @@
 #include <peview.h>
 #include "colmgr.h"
 
-static PH_STRINGREF EmptyResourcesText = PH_STRINGREF_INIT(L"There are no resources to display.");
-static PH_STRINGREF LoadingResourcesText = PH_STRINGREF_INIT(L"Loading resources from image...");
+static PH_STRINGREF EmptyResourcesText = PH_STRINGREF_INIT(L"没有要显示的资源。");
+static PH_STRINGREF LoadingResourcesText = PH_STRINGREF_INIT(L"正在从映像加载资源...");
 
 typedef enum _PV_RESOURCES_TREE_COLUMN_ITEM
 {
@@ -321,7 +321,7 @@ VOID PvpPeResourceSaveToFile(
 
             if (!NT_SUCCESS(status))
             {
-                PhShowStatus(WindowHandle, L"Unable to save resource.", status, 0);
+                PhShowStatus(WindowHandle, L"无法保存资源。", status, 0);
             }
         }
     }
@@ -597,7 +597,7 @@ INT_PTR CALLBACK PvPeResourcesDlgProc(
             PvCreateSearchControl(
                 hwndDlg,
                 context->SearchHandle,
-                L"Search Resources (Ctrl+K)",
+                L"搜索资源 (Ctrl+K)",
                 PvpPeResourcesSearchControlCallback,
                 context
                 );

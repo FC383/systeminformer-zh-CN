@@ -1267,7 +1267,7 @@ PPH_STRING GraphicsGetNodeEngineTypeString(
         static CONST PH_STRINGREF nameEncodeString = PH_STRINGREF_INIT(L"Video Encode");
         static CONST PH_STRINGREF nameProcessingString = PH_STRINGREF_INIT(L"Video Processing");
         static CONST PH_STRINGREF nameAssemblyString = PH_STRINGREF_INIT(L"Scene Assembly");
-        static CONST PH_STRINGREF nameCopyString = PH_STRINGREF_INIT(L"Copy");
+        static CONST PH_STRINGREF nameCopyString = PH_STRINGREF_INIT(L"复制");
         static CONST PH_STRINGREF nameOverlayString = PH_STRINGREF_INIT(L"Overlay");
         static CONST PH_STRINGREF nameCryptoString = PH_STRINGREF_INIT(L"Crypto");
 

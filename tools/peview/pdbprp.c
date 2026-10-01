@@ -13,8 +13,8 @@
 #include <emenu.h>
 #include "colmgr.h"
 
-static PH_STRINGREF EmptySymbolsText = PH_STRINGREF_INIT(L"There are no symbols to display.");
-static PH_STRINGREF LoadingSymbolsText = PH_STRINGREF_INIT(L"Loading symbols...");
+static PH_STRINGREF EmptySymbolsText = PH_STRINGREF_INIT(L"没有要显示的符号。");
+static PH_STRINGREF LoadingSymbolsText = PH_STRINGREF_INIT(L"正在加载符号...");
 
 BOOLEAN SymbolNodeHashtableCompareFunction(
     _In_ PVOID Entry1,
@@ -914,7 +914,7 @@ INT_PTR CALLBACK PvpSymbolsDlgProc(
             PvCreateSearchControl(
                 hwndDlg,
                 context->SearchHandle,
-                L"Search Symbols (Ctrl+K)",
+                L"搜索符号 (Ctrl+K)",
                 PvpSymbolsSearchControlCallback,
                 context
                 );
@@ -1187,7 +1187,7 @@ VOID PvPdbProperties(
 
     if (!PhDoesFileExistWin32(PhGetString(PvFileName)))
     {
-        PhShowStatus(NULL, L"Unable to load the pdb file", STATUS_FILE_NOT_AVAILABLE, 0);
+        PhShowStatus(NULL, L"无法加载 PDB 文件", STATUS_FILE_NOT_AVAILABLE, 0);
         return;
     }
 

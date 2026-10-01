@@ -1011,7 +1011,7 @@ BOOLEAN NTAPI PhpUserListTreeNewCallback(
             if (numberOfNodes != 0)
             {
                 menu = PhCreateEMenu();
-                PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_COPY, L"Copy", NULL, NULL), ULONG_MAX);
+                PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_COPY, L"复制", NULL, NULL), ULONG_MAX);
                 PhInsertCopyCellEMenuItem(menu, IDC_COPY, context->TreeNewHandle, contextMenu->Column);
 
                 selectedItem = PhShowEMenu(
@@ -1096,31 +1096,31 @@ VOID PhpInitializeUserListTree(
 
     TreeNew_SetRedraw(Context->TreeNewHandle, FALSE);
 
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_USER_NAME, TRUE, L"User name", 250, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LOGON_DOMAIN, TRUE, L"Logon domain", 180, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_SESSION_ID, TRUE, L"Session ID", 80, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LOGON_TYPE, TRUE, L"Logon type", 100, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_AUTHENTICATION_PACKAGE, TRUE, L"Authentication package", 140, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_DNS_DOMAIN_NAME, TRUE, L"DNS domain name", 140, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LOGON_TIME, TRUE, L"Logon time", 140, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_PASSWORD_LAST_SET, TRUE, L"Password last set", 140, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_USER_NAME, TRUE, L"用户名", 250, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LOGON_DOMAIN, TRUE, L"登录域", 180, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_SESSION_ID, TRUE, L"会话 ID", 80, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LOGON_TYPE, TRUE, L"登录类型", 100, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_AUTHENTICATION_PACKAGE, TRUE, L"身份验证包", 140, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_DNS_DOMAIN_NAME, TRUE, L"DNS 域名", 140, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LOGON_TIME, TRUE, L"登录时间", 140, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_PASSWORD_LAST_SET, TRUE, L"上次设置密码", 140, PH_ALIGN_LEFT, index++, 0);
     PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_SID, TRUE, L"SID", 180, PH_ALIGN_LEFT, index++, 0);
 
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LOGON_ID, FALSE, L"Logon ID", 80, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LOGON_SERVER, FALSE, L"Logon server", 180, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_USER_PRINCIPAL_NAME, FALSE, L"User principal name", 180, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_USER_FLAGS, FALSE, L"User flags", 180, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_FAILED_ATTEMPTS_SINCE_LAST_SUCCESSFUL_LOGON, FALSE, L"Failed logon attempts since", 80, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LAST_SUCCESSFUL_LOGON, FALSE, L"Last successful logon", 140, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LAST_FAILED_LOGON, FALSE, L"Last failed logon", 140, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LOGON_SCRIPT, FALSE, L"Longon script", 180, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_PROFILE_PATH, FALSE, L"Profile path", 180, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_HOME_DIRECTORY, FALSE, L"Home directory", 180, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_HOME_DIRECTORY_DRIVE, FALSE, L"Home directory drive", 80, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LOGOFF_TIME, FALSE, L"Logoff time", 140, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_KICKOFF_TIME, FALSE, L"Kickoff time", 140, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_PASSWORD_CAN_CHANGE, FALSE, L"Password can set", 140, PH_ALIGN_LEFT, index++, 0);
-    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_PASSWORD_MUST_CHANGE, FALSE, L"Password must set", 140, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LOGON_ID, FALSE, L"登录 ID", 80, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LOGON_SERVER, FALSE, L"登录服务器", 180, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_USER_PRINCIPAL_NAME, FALSE, L"用户主体名称", 180, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_USER_FLAGS, FALSE, L"用户标志", 180, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_FAILED_ATTEMPTS_SINCE_LAST_SUCCESSFUL_LOGON, FALSE, L"自…以来失败的登录尝试", 80, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LAST_SUCCESSFUL_LOGON, FALSE, L"上次成功登录", 140, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LAST_FAILED_LOGON, FALSE, L"上次失败登录", 140, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LOGON_SCRIPT, FALSE, L"登录脚本", 180, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_PROFILE_PATH, FALSE, L"配置文件路径", 180, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_HOME_DIRECTORY, FALSE, L"主目录", 180, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_HOME_DIRECTORY_DRIVE, FALSE, L"主目录驱动器", 80, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_LOGOFF_TIME, FALSE, L"注销时间", 140, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_KICKOFF_TIME, FALSE, L"断开时间", 140, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_PASSWORD_CAN_CHANGE, FALSE, L"可以设置密码", 140, PH_ALIGN_LEFT, index++, 0);
+    PhAddTreeNewColumn(Context->TreeNewHandle, PH_USER_LIST_COLUMN_PASSWORD_MUST_CHANGE, FALSE, L"必须设置密码", 140, PH_ALIGN_LEFT, index++, 0);
 
     TreeNew_SetRedraw(Context->TreeNewHandle, TRUE);
     //TreeNew_SetTriState(Context->TreeNewHandle, FALSE);

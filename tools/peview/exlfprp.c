@@ -200,9 +200,9 @@ VOID PvpSetWslmageVersionInfo(
     _In_ HWND WindowHandle
     )
 {
-    PhSetDialogItemText(WindowHandle, IDC_NAME, L"Loading...");
-    PhSetDialogItemText(WindowHandle, IDC_COMPANYNAME, L"Loading...");
-    PhSetDialogItemText(WindowHandle, IDC_VERSION, L"Loading...");
+    PhSetDialogItemText(WindowHandle, IDC_NAME, L"正在加载...");
+    PhSetDialogItemText(WindowHandle, IDC_COMPANYNAME, L"正在加载...");
+    PhSetDialogItemText(WindowHandle, IDC_VERSION, L"正在加载...");
 
     PhCreateThread2(PvpQueryWslImageThreadStart, WindowHandle);
 

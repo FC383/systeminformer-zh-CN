@@ -1722,11 +1722,11 @@ INT_PTR CALLBACK PhpMemoryStringsDlgProc(
 
                 menu = PhCreateEMenu();
 
-                readWrite = PhCreateEMenuItem(0, IDC_SHOW, L"Read/Write memory", NULL, NULL);
+                readWrite = PhCreateEMenuItem(0, IDC_SHOW, L"读取/写入内存(&R)", NULL, NULL);
                 readWrite->Flags |= PH_EMENU_DEFAULT;
                 PhInsertEMenuItem(menu, readWrite, ULONG_MAX);
                 PhInsertEMenuItem(menu, PhCreateEMenuSeparator(), ULONG_MAX);
-                PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_COPY, L"Copy", NULL, NULL), ULONG_MAX);
+                PhInsertEMenuItem(menu, PhCreateEMenuItem(0, IDC_COPY, L"复制", NULL, NULL), ULONG_MAX);
                 PhInsertCopyCellEMenuItem(menu, IDC_COPY, context->TreeNewHandle, contextMenuEvent->Column);
 
                 if (numberOfNodes != 1)
@@ -1802,13 +1802,13 @@ INT_PTR CALLBACK PhpMemoryStringsDlgProc(
                     private = PhCreateEMenuItem(0, 4, L"Private", NULL, NULL);
                     image = PhCreateEMenuItem(0, 5, L"Image", NULL, NULL);
                     mapped = PhCreateEMenuItem(0, 6, L"Mapped", NULL, NULL);
-                    minimumLength = PhCreateEMenuItem(0, 7, L"Minimum length...", NULL, NULL);
-                    zeroPad = PhCreateEMenuItem(0, 8, L"Zero pad addresses", NULL, NULL);
-                    refresh = PhCreateEMenuItem(0, 9, L"Refresh\bF5", NULL, NULL);
+                    minimumLength = PhCreateEMenuItem(0, 7, L"最小长度(&M)...", NULL, NULL);
+                    zeroPad = PhCreateEMenuItem(0, 8, L"地址零填充(&Z)", NULL, NULL);
+                    refresh = PhCreateEMenuItem(0, 9, L"刷新(&R)\bF5", NULL, NULL);
                     if (context->ThreadCount == 0)
-                        swprintf_s(threadCountLabel, RTL_NUMBER_OF(threadCountLabel), L"Thread count... (auto)");
+                        swprintf_s(threadCountLabel, RTL_NUMBER_OF(threadCountLabel), L"线程数... (自动)");
                     else
-                        swprintf_s(threadCountLabel, RTL_NUMBER_OF(threadCountLabel), L"Thread count... (%lu)", context->ThreadCount);
+                        swprintf_s(threadCountLabel, RTL_NUMBER_OF(threadCountLabel), L"线程数... (%lu)", context->ThreadCount);
                     threadCount = PhCreateEMenuItem(0, 10, threadCountLabel, NULL, NULL);
 
                     menu = PhCreateEMenu();

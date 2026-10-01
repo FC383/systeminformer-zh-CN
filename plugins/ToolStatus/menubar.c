@@ -888,7 +888,7 @@ LRESULT CALLBACK ToolStatusMenuBarDrawToolbar(
                 {
                     TsMenuBarThemeHandle = PhOpenThemeData(
                         DrawInfo->nmcd.hdr.hwndFrom,
-                        L"Toolbar",
+                        L"工具栏",
                         PhGetWindowDpi(DrawInfo->nmcd.hdr.hwndFrom)
                     );
                 }

@@ -334,7 +334,7 @@ static VOID PvpPeClrShowTablePreview(
     if (!NT_SUCCESS(status))
     {
         PhFree(previewContext);
-        PhShowStatus(Context->WindowHandle, L"Unable to preview CLR table rows", status, 0);
+        PhShowStatus(Context->WindowHandle, L"无法预览 CLR 表行", status, 0);
         return;
     }
 
@@ -349,7 +349,7 @@ static VOID PvpPeClrShowTablePreview(
     if (!dialogHandle)
     {
         PhFree(previewContext);
-        PhShowError(Context->WindowHandle, L"%s", L"Unable to create the CLR table preview window.");
+        PhShowError(Context->WindowHandle, L"%s", L"无法创建 CLR 表预览窗口。");
         return;
     }
 

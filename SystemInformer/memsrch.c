@@ -1002,7 +1002,7 @@ HRESULT CALLBACK PhpMemoryStringTaskDialogCallback(
             }
 
             numberText = PhFormatUInt64(context->ResultCount, TRUE);
-            progressText = PhFormatString(L"%s strings found...", numberText->Buffer);
+            progressText = PhFormatString(L"找到 %s 个字符串...", numberText->Buffer);
 
             SendMessage(hwndDlg, TDM_SET_ELEMENT_TEXT, TDE_CONTENT, (LPARAM)progressText->Buffer);
 
