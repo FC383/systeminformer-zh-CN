@@ -256,7 +256,7 @@ BOOL (WINAPI *IsDarkModeAllowedForApp_I)(
 {\
     RECT rect;\
     GetClientRect((WindowHandle), &rect);\
-    assert(EqualRect(&rect, &(RcPaint)));\
+    assert(PhEqualRect(&rect, &(RcPaint)));\
 }
 #else
 #define DEBUG_BEGINPAINT_RECT(RcPaint)
@@ -4471,30 +4471,38 @@ VOID ThemeWindowRenderComboBox(
 
     if (Context->ThemeHandle)
     {
+        COMBOBOXINFO info = { sizeof(COMBOBOXINFO) };
+        RECT dropdownRect = bufferRect;
         SIZE dropdownSize = { 0 };
 
-        PhGetThemePartSize(
-            Context->ThemeHandle,
-            bufferDc,
-            CP_DROPDOWNBUTTONRIGHT,
-            CBXSR_NORMAL,
-            NULL,
-            THEMEPARTSIZE_TRUE,
-            &dropdownSize
-            );
+        if (CallWindowProc(WindowProcedure, WindowHandle, CB_GETCOMBOBOXINFO, 0, (LPARAM)&info) &&
+            !PhRectEmpty(&info.rcButton))
+        {
+            dropdownRect = info.rcButton;
+        }
+        else
+        {
+            PhGetThemePartSize(
+                Context->ThemeHandle,
+                bufferDc,
+                CP_DROPDOWNBUTTONRIGHT,
+                CBXSR_NORMAL,
+                NULL,
+                THEMEPARTSIZE_TRUE,
+                &dropdownSize
+                );
 
-        bufferRect.left = clientRect->right - dropdownSize.cx;
+            dropdownRect.left = clientRect->right - dropdownSize.cx;
+        }
 
         PhDrawThemeBackground(
             Context->ThemeHandle,
             bufferDc,
             CP_DROPDOWNBUTTONRIGHT,
             CBXSR_DISABLED,
-            &bufferRect,
+            &dropdownRect,
             NULL
             );
-
-        bufferRect.left = 0;
     }
     else
     {

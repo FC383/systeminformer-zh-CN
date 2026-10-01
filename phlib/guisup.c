@@ -226,7 +226,7 @@ HFONT PhCreateFontHandle(
         FALSE,
         FALSE,
         FALSE,
-        ANSI_CHARSET,
+        DEFAULT_CHARSET,
         OUT_DEFAULT_PRECIS,
         CLIP_DEFAULT_PRECIS,
         PhFontQuality,
@@ -266,7 +266,7 @@ HFONT PhCreateCommonFont(
         FALSE,
         FALSE,
         FALSE,
-        ANSI_CHARSET,
+        DEFAULT_CHARSET,
         OUT_DEFAULT_PRECIS,
         CLIP_DEFAULT_PRECIS,
         PhFontQuality,
@@ -458,7 +458,7 @@ static HFONT PhpCreateFontFromSetting(
     LOGFONT font;
     HFONT fontHandle;
 
-    fontHexString = PhaGetStringSetting(SettingName);
+    fontHexString = PhGetStringSetting(SettingName);
 
     if (
         fontHexString->Length / sizeof(WCHAR) / 2 == sizeof(LOGFONT) &&
@@ -468,8 +468,13 @@ static HFONT PhpCreateFontFromSetting(
         font.lfQuality = (UCHAR)PhFontQuality;
 
         if (fontHandle = CreateFontIndirect(&font))
+        {
+            PhDereferenceObject(fontHexString);
             return fontHandle;
+        }
     }
+
+    PhDereferenceObject(fontHexString);
 
     if (Fallback)
         return Fallback(WindowDpi);
@@ -2972,10 +2977,14 @@ VOID PhDeleteLayoutManager(
 {
     ULONG i;
 
+    if (!Manager->List)
+        return;
+
     for (i = 0; i < Manager->List->Count; i++)
         PhFree(Manager->List->Items[i]);
 
     PhDereferenceObject(Manager->List);
+    memset(Manager, 0, sizeof(PH_LAYOUT_MANAGER));
 }
 
 /**
@@ -3015,8 +3024,7 @@ PPH_LAYOUT_ITEM PhAddLayoutItem(
 
     if (layoutItem->ParentItem != layoutItem->LayoutParentItem)
     {
-        // Fix the margin because the item has a dummy parent. They share the same layout parent
-        // item.
+        // Fix the margin because the item has a dummy parent. They share the same layout parent item.
         layoutItem->Margin.top -= layoutItem->ParentItem->Rect.top;
         layoutItem->Margin.left -= layoutItem->ParentItem->Rect.left;
         layoutItem->Margin.right = layoutItem->ParentItem->Margin.right;
@@ -3033,7 +3041,9 @@ PPH_LAYOUT_ITEM PhAddLayoutItem(
  * \param Handle Window handle to manage.
  * \param ParentItem Optional parent layout item; if NULL the root item is used.
  * \param Anchor Anchor flags controlling layout behaviour.
- * \param Margin Pointer to a RECT that specifies the margin for the item.
+ * \param Margin Pointer to a RECT that specifies the margin in pixels at
+ * Manager->WindowDpi. Use PhAddLayoutItemExLogical for a margin copied from
+ * an existing PH_LAYOUT_ITEM.
  * \return Pointer to the newly created PPH_LAYOUT_ITEM.
  */
 PPH_LAYOUT_ITEM PhAddLayoutItemEx(
@@ -4467,14 +4477,14 @@ BOOLEAN PhSetWindowText(
 {
     ULONG_PTR result = 0;
 
-    if (PhSendMessageTimeout(
+    if (NT_SUCCESS(PhSendMessageTimeout(
         WindowHandle,
         WM_SETTEXT,
         0,
         (LPARAM)WindowText,
         1000,
         &result
-        ) && result > 0)
+        )))
     {
         return TRUE;
     }
@@ -4522,7 +4532,7 @@ VOID PhSetWindowAlwaysOnTop(
 }
 
 _Success_(return)
-BOOLEAN PhSendMessageTimeout(
+NTSTATUS PhSendMessageTimeout(
     _In_ HWND WindowHandle,
     _In_ ULONG WindowMessage,
     _In_ WPARAM wParam,
@@ -4541,17 +4551,17 @@ BOOLEAN PhSendMessageTimeout(
         SMTO_ABORTIFHUNG | SMTO_BLOCK,
         Timeout,
         &result
-        ) && result > 0)
+        ))
     {
         if (Result)
         {
             *Result = result;
         }
 
-        return TRUE;
+        return STATUS_SUCCESS;
     }
 
-    return FALSE;
+    return PhGetLastWin32ErrorAsNtStatus();
 }
 
 /**
@@ -5528,6 +5538,9 @@ BOOLEAN PhImageListSetImageCount(
     _In_ ULONG Count
     )
 {
+    if (!ImageListHandle)
+        return FALSE;
+
     return SUCCEEDED(IImageList2_SetImageCount((IImageList2*)ImageListHandle, Count));
 }
 
@@ -5536,6 +5549,9 @@ BOOLEAN PhImageListGetImageCount(
     _Out_ PLONG Count
     )
 {
+    if (!ImageListHandle)
+        return FALSE;
+
     return SUCCEEDED(IImageList2_GetImageCount((IImageList2*)ImageListHandle, Count));
 }
 
@@ -5545,6 +5561,9 @@ BOOLEAN PhImageListSetBkColor(
     )
 {
     COLORREF previousColor = 0;
+
+    if (!ImageListHandle)
+        return FALSE;
 
     return SUCCEEDED(IImageList2_SetBkColor(
         (IImageList2*)ImageListHandle,
@@ -5559,6 +5578,9 @@ LONG PhImageListAddIcon(
     )
 {
     LONG index = INT_ERROR;
+
+    if (!ImageListHandle)
+        return INT_ERROR;
 
     IImageList2_ReplaceIcon(
         (IImageList2*)ImageListHandle,
@@ -5578,6 +5600,9 @@ LONG PhImageListAddBitmap(
 {
     LONG index = INT_ERROR;
 
+    if (!ImageListHandle)
+        return INT_ERROR;
+
     IImageList2_Add(
         (IImageList2*)ImageListHandle,
         BitmapImage,
@@ -5593,6 +5618,9 @@ BOOLEAN PhImageListRemoveIcon(
     _In_ LONG Index
     )
 {
+    if (!ImageListHandle)
+        return FALSE;
+
     return SUCCEEDED(IImageList2_Remove(
         (IImageList2*)ImageListHandle,
         Index
@@ -5606,6 +5634,9 @@ HICON PhImageListGetIcon(
     )
 {
     HICON iconhandle = NULL;
+
+    if (!ImageListHandle)
+        return NULL;
 
     IImageList2_GetIcon(
         (IImageList2*)ImageListHandle,
@@ -5623,6 +5654,9 @@ BOOLEAN PhImageListGetIconSize(
     _Out_ PLONG cy
     )
 {
+    if (!ImageListHandle)
+        return FALSE;
+
     return SUCCEEDED(IImageList2_GetIconSize(
         (IImageList2*)ImageListHandle,
         cx,
@@ -5637,6 +5671,9 @@ BOOLEAN PhImageListReplace(
     _In_opt_ HBITMAP BitmapMask
     )
 {
+    if (!ImageListHandle)
+        return FALSE;
+
     return SUCCEEDED(IImageList2_Replace(
         (IImageList2*)ImageListHandle,
         Index,
@@ -5655,6 +5692,9 @@ BOOLEAN PhImageListDrawIcon(
     _In_ BOOLEAN Disabled
     )
 {
+    if (!ImageListHandle)
+        return FALSE;
+
     return PhImageListDrawEx(
         ImageListHandle,
         Index,
@@ -5685,6 +5725,9 @@ BOOLEAN PhImageListDrawEx(
     )
 {
     IMAGELISTDRAWPARAMS imagelistDraw;
+
+    if (!ImageListHandle)
+        return FALSE;
 
     memset(&imagelistDraw, 0, sizeof(IMAGELISTDRAWPARAMS));
     imagelistDraw.cbSize = sizeof(IMAGELISTDRAWPARAMS);
@@ -5937,7 +5980,7 @@ VOID PhCustomDrawTreeTimeLine(
 // Windows Imaging Component (WIC) bitmap support
 
 HBITMAP PhCreateDIBSection(
-    _In_ HDC Hdc,
+    _In_opt_ HDC Hdc,
     _In_ PH_BUFFERFORMAT Format,
     _In_ LONG Width,
     _In_ LONG Height,
@@ -7111,6 +7154,7 @@ NTSTATUS PhOpenWindowProcess(
 
     if (!NtUserGetWindowProcessHandle_I)
     {
+        *ProcessHandle = NULL;
         return STATUS_PROCEDURE_NOT_FOUND;
     }
 
@@ -7206,7 +7250,6 @@ NTSTATUS PhGetInputMessageSourceSM(
  *
  * \param Devices An array of RAWINPUTDEVICE structures that represent the devices that supply the raw input.
  * \param Count The number of RAWINPUTDEVICE structures in the array.
- *
  * \return TRUE if the function succeeds, otherwise FALSE.
  */
 BOOLEAN NTAPI PhRegisterRawInputDevices(
@@ -7224,7 +7267,6 @@ BOOLEAN NTAPI PhRegisterRawInputDevices(
  * \param Command The command flag.
  * \param Buffer A pointer to the data that comes from the RAWINPUT structure.
  * \param Size The size, in bytes, of the data in Buffer.
- *
  * \return NTSTATUS Successful or errant status.
  */
 NTSTATUS NTAPI PhGetRawInputData(
@@ -7239,6 +7281,7 @@ NTSTATUS NTAPI PhGetRawInputData(
         return STATUS_SUCCESS;
     }
 
+    *ProcessHandle = NULL;
     return PhGetLastWin32ErrorAsNtStatus();
 }
 
